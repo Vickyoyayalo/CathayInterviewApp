@@ -13,39 +13,47 @@ class MainViewController: UIViewController {
     private let notificationButton = UIButton(type: .system)
     private let redDotLabel = UILabel()
     
+    struct RedDotPosition {
+        static let offsetX: CGFloat = -5
+        static let offsetY: CGFloat = 5
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         setupUI()
         setupBindings()
         viewModel.fetchNotifications()
     }
     
     private func setupUI() {
-        // 通知按鈕
+        view.backgroundColor = .white
+      
         notificationButton.setImage(UIImage(systemName: "bell"), for: .normal)
+        notificationButton.tintColor = .black
         notificationButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(notificationButton)
         
-        // 紅點
-        redDotLabel.backgroundColor = .red
+        redDotLabel.backgroundColor = UIColor.fromHex("#FF5733")
         redDotLabel.layer.cornerRadius = 5
+        redDotLabel.layer.borderWidth = 1.5
+        redDotLabel.layer.borderColor = UIColor.white.cgColor
         redDotLabel.clipsToBounds = true
         redDotLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(redDotLabel)
-        
-        // 設置約束
+      
         NSLayoutConstraint.activate([
             notificationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             notificationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             notificationButton.widthAnchor.constraint(equalToConstant: 30),
             notificationButton.heightAnchor.constraint(equalToConstant: 30),
-            
+
             redDotLabel.widthAnchor.constraint(equalToConstant: 10),
             redDotLabel.heightAnchor.constraint(equalToConstant: 10),
-            redDotLabel.centerXAnchor.constraint(equalTo: notificationButton.trailingAnchor),
-            redDotLabel.centerYAnchor.constraint(equalTo: notificationButton.topAnchor)
+
+            redDotLabel.topAnchor.constraint(equalTo: notificationButton.topAnchor, constant: RedDotPosition.offsetY),
+            redDotLabel.trailingAnchor.constraint(equalTo: notificationButton.trailingAnchor, constant: RedDotPosition.offsetX)
         ])
+
     }
     
     private func setupBindings() {

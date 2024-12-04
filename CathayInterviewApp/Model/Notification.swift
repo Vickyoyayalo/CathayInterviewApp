@@ -7,10 +7,21 @@
 
 import Foundation
 
-struct Notification: Decodable {
-    let id: Int
-    let title: String
-    let body: String
-    let date: String
+struct NotificationResponse: Decodable {
+    let msgCode: String
+    let msgContent: String
+    let result: NotificationResult
 }
+
+struct NotificationResult: Decodable {
+    let messages: [Notification]
+}
+
+struct Notification: Decodable {
+    let status: Bool
+    let updateDateTime: String
+    let title: String
+    let message: String
+}
+
 
