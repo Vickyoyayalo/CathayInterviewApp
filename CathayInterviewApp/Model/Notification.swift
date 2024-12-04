@@ -18,7 +18,7 @@ struct NotificationResult: Decodable {
 }
 
 struct Notification: Decodable {
-    let status: Bool
+    var status: Bool
     let updateDateTime: String
     let title: String
     let message: String
