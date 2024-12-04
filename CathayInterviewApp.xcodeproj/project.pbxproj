@@ -14,6 +14,11 @@
 		1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698A42CFFF235009332BF /* CathayInterviewApp.xcdatamodeld */; };
 		1CB698A82CFFF235009332BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698A72CFFF235009332BF /* Assets.xcassets */; };
 		1CB698AB2CFFF235009332BF /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698AA2CFFF235009332BF /* Base */; };
+		1CB698B92D0025F3009332BF /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698B82D0025F3009332BF /* Notification.swift */; };
+		1CB698BB2D002664009332BF /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698BA2D002664009332BF /* Account.swift */; };
+		1CB698BD2D002679009332BF /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698BC2D002679009332BF /* APIService.swift */; };
+		1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698BE2D0026B7009332BF /* MainViewModel.swift */; };
+		1CB698C12D00277F009332BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698C02D00277F009332BF /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		1CB698A72CFFF235009332BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CB698AA2CFFF235009332BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CB698AC2CFFF235009332BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CB698B82D0025F3009332BF /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		1CB698BA2D002664009332BF /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		1CB698BC2D002679009332BF /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		1CB698BE2D0026B7009332BF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		1CB698C02D00277F009332BF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +71,58 @@
 				1CB6989B2CFFF235009332BF /* AppDelegate.swift */,
 				1CB6989D2CFFF235009332BF /* SceneDelegate.swift */,
 				1CB6989F2CFFF235009332BF /* ViewController.swift */,
-				1CB698A12CFFF235009332BF /* Main.storyboard */,
-				1CB698A72CFFF235009332BF /* Assets.xcassets */,
-				1CB698A92CFFF235009332BF /* LaunchScreen.storyboard */,
+				1CB698C22D00279A009332BF /* Model */,
+				1CB698C52D0027F0009332BF /* Service */,
+				1CB698C42D0027C8009332BF /* View */,
+				1CB698C32D0027B1009332BF /* ViewModel */,
+				1CB698C62D002814009332BF /* Resources */,
 				1CB698AC2CFFF235009332BF /* Info.plist */,
 				1CB698A42CFFF235009332BF /* CathayInterviewApp.xcdatamodeld */,
 			);
 			path = CathayInterviewApp;
+			sourceTree = "<group>";
+		};
+		1CB698C22D00279A009332BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698B82D0025F3009332BF /* Notification.swift */,
+				1CB698BA2D002664009332BF /* Account.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1CB698C32D0027B1009332BF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698BE2D0026B7009332BF /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1CB698C42D0027C8009332BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698C02D00277F009332BF /* MainViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1CB698C52D0027F0009332BF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698BC2D002679009332BF /* APIService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		1CB698C62D002814009332BF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698A72CFFF235009332BF /* Assets.xcassets */,
+				1CB698A12CFFF235009332BF /* Main.storyboard */,
+				1CB698A92CFFF235009332BF /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +197,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CB698A02CFFF235009332BF /* ViewController.swift in Sources */,
+				1CB698BD2D002679009332BF /* APIService.swift in Sources */,
+				1CB698B92D0025F3009332BF /* Notification.swift in Sources */,
 				1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */,
 				1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */,
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
+				1CB698C12D00277F009332BF /* MainViewController.swift in Sources */,
+				1CB698BB2D002664009332BF /* Account.swift in Sources */,
+				1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
