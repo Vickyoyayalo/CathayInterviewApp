@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         let mainVC = MainViewController()
-        let navController = UINavigationController(rootViewController: mainVC) // 包裝在 NavigationController
+        let navController = UINavigationController(rootViewController: mainVC)
         window.rootViewController = navController
         self.window = window
         window.makeKeyAndVisible()

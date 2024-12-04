@@ -24,15 +24,26 @@ class NotificationListViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupBindings()
-        viewModel.fetchNotifications() // 加載通知列表
-        print("TableView is added to view: \(tableView.superview != nil)")
+        viewModel.fetchNotifications()
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTapped))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
-        title = "Notifications"
+        view.backgroundColor = UIColor.fromHex("#F5F5F5")
+        title = "Notification"
         
-        // 添加 TableView
+        tableView.backgroundColor = UIColor.fromHex("#F5F5F5")
+        tableView.separatorStyle = .none
+        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -43,13 +54,12 @@ class NotificationListViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        print("Data source and delegate set")
     }
     
     private func setupBindings() {
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
-                print("Reloading TableView") // 確認這裡被調用
+                print("Reloading TableView")
                 self?.tableView.reloadData()
             }
         }
@@ -58,7 +68,7 @@ class NotificationListViewController: UIViewController {
 
 extension NotificationListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of rows: \(viewModel.notificationCount)") // 打印行數，檢查是否為 0
+        print("Number of rows: \(viewModel.notificationCount)")
         return viewModel.notificationCount
     }
     

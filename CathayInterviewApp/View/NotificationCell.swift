@@ -12,6 +12,7 @@ class NotificationCell: UITableViewCell {
     
     private let titleLabel = UILabel()
     private let messageLabel = UILabel()
+    private let redDotView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,10 +24,18 @@ class NotificationCell: UITableViewCell {
     }
     
     private func setupUI() {
+       
         titleLabel.font = .boldSystemFont(ofSize: 16)
+       
         messageLabel.font = .systemFont(ofSize: 14)
-        messageLabel.textColor = .gray
-        messageLabel.numberOfLines = 0
+        messageLabel.textColor = .darkGray
+        messageLabel.numberOfLines = 2
+      
+        redDotView.backgroundColor = UIColor.fromHex("#FF5733")
+        redDotView.layer.cornerRadius = 5
+        redDotView.clipsToBounds = true
+        redDotView.translatesAutoresizingMaskIntoConstraints = false
+        redDotView.isHidden = true
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, messageLabel])
         stackView.axis = .vertical
@@ -34,19 +43,29 @@ class NotificationCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(stackView)
+        contentView.addSubview(redDotView)
+        
+       
         NSLayoutConstraint.activate([
+           
+            redDotView.widthAnchor.constraint(equalToConstant: 10),
+            redDotView.heightAnchor.constraint(equalToConstant: 10),
+            redDotView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            redDotView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            
+            
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            stackView.leadingAnchor.constraint(equalTo: redDotView.trailingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
         ])
     }
     
     func configure(with notification: Notification) {
+        
         titleLabel.text = notification.title
         messageLabel.text = notification.message
-        backgroundColor = notification.status ? .white : UIColor.systemYellow.withAlphaComponent(0.3)
-        print("Configuring cell with notification: \(notification.title)") // 確保每個 cell 都有被正確配置
+      
+        redDotView.isHidden = notification.status
     }
-    
 }
