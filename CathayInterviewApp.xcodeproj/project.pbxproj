@@ -20,6 +20,10 @@
 		1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698BE2D0026B7009332BF /* MainViewModel.swift */; };
 		1CB698C82D002CB4009332BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698C72D002CB4009332BF /* MainViewController.swift */; };
 		1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698CA2D004283009332BF /* ExtensionUIColor.swift */; };
+		1CB698CD2D004FAA009332BF /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */; };
+		1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698CE2D0050E9009332BF /* NotificationCell.swift */; };
+		1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D02D005105009332BF /* NotificationListViewModel.swift */; };
+		1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D32D008D16009332BF /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		1CB698BE2D0026B7009332BF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1CB698C72D002CB4009332BF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1CB698CA2D004283009332BF /* ExtensionUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColor.swift; sourceTree = "<group>"; };
+		1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
+		1CB698CE2D0050E9009332BF /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		1CB698D02D005105009332BF /* NotificationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewModel.swift; sourceTree = "<group>"; };
+		1CB698D32D008D16009332BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,7 @@
 				1CB6989B2CFFF235009332BF /* AppDelegate.swift */,
 				1CB6989D2CFFF235009332BF /* SceneDelegate.swift */,
 				1CB6989F2CFFF235009332BF /* ViewController.swift */,
+				1CB698D22D008D07009332BF /* Manager */,
 				1CB698C22D00279A009332BF /* Model */,
 				1CB698C52D0027F0009332BF /* Service */,
 				1CB698C42D0027C8009332BF /* View */,
@@ -98,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				1CB698BE2D0026B7009332BF /* MainViewModel.swift */,
+				1CB698D02D005105009332BF /* NotificationListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -106,6 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
+				1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */,
+				1CB698CE2D0050E9009332BF /* NotificationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -134,6 +146,14 @@
 				1CB698CA2D004283009332BF /* ExtensionUIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1CB698D22D008D07009332BF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698D32D008D16009332BF /* NotificationManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,14 +227,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CB698CD2D004FAA009332BF /* NotificationListViewController.swift in Sources */,
 				1CB698A02CFFF235009332BF /* ViewController.swift in Sources */,
 				1CB698BD2D002679009332BF /* APIService.swift in Sources */,
 				1CB698B92D0025F3009332BF /* Notification.swift in Sources */,
+				1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */,
+				1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */,
 				1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */,
 				1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */,
 				1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */,
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
 				1CB698C82D002CB4009332BF /* MainViewController.swift in Sources */,
+				1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */,
 				1CB698BB2D002664009332BF /* Account.swift in Sources */,
 				1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */,
 			);
