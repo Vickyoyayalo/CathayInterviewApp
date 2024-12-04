@@ -28,6 +28,7 @@ class MainViewModel {
         APIService.shared.fetchNotifications { [weak self] result in
             switch result {
             case .success(let notifications):
+                print("Fetched Notifications: \(notifications)")
                 self?.notifications = notifications
             case .failure(let error):
                 print("Error fetching notifications: \(error)")

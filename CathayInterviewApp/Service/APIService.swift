@@ -29,9 +29,10 @@ class APIService {
             }
 
             do {
-                let notifications = try JSONDecoder().decode([Notification].self, from: data)
-                completion(.success(notifications))
+                let response = try JSONDecoder().decode(NotificationResponse.self, from: data)
+                completion(.success(response.result.messages))
             } catch {
+                print("Decoding Error: \(error)")
                 completion(.failure(error))
             }
         }.resume()
