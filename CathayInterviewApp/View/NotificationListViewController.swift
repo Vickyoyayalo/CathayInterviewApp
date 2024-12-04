@@ -9,10 +9,8 @@ import UIKit
 
 class NotificationListViewController: UIViewController {
     
-    // ViewModel
     private let viewModel = NotificationListViewModel()
     
-    // TableView
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +37,7 @@ class NotificationListViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = UIColor.fromHex("#F5F5F5")
-        title = "Notification"
+        title = "Notifications"
         
         tableView.backgroundColor = UIColor.fromHex("#F5F5F5")
         tableView.separatorStyle = .none
@@ -59,8 +57,8 @@ class NotificationListViewController: UIViewController {
     private func setupBindings() {
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
-                print("Reloading TableView")
                 self?.tableView.reloadData()
+                print("NotificationListViewController reloaded tableView")
             }
         }
     }
@@ -68,11 +66,12 @@ class NotificationListViewController: UIViewController {
 
 extension NotificationListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of rows: \(viewModel.notificationCount)")
+        print("Number of rows: \(viewModel.notificationCount)") // 打印行數，檢查是否為 0
         return viewModel.notificationCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationCell.identifier, for: indexPath) as? NotificationCell else {
             return UITableViewCell()
         }
@@ -85,5 +84,6 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.markAsRead(at: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
+        print("Did select notification at index \(indexPath.row)")
     }
 }

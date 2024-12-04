@@ -8,13 +8,17 @@
 import Foundation
 
 class NotificationListViewModel {
-    private var notifications: [Notification] = [] {
-        didSet {
-            self.updateUI?()
-        }
-    }
+    private var notifications: [Notification] = []
     
     var updateUI: (() -> Void)?
+    
+    init() {
+        NotificationManager.shared.addObserver { [weak self] in
+            self?.notifications = NotificationManager.shared.getNotifications()
+            self?.updateUI?()
+            print("NotificationListViewModel notified to update UI")
+        }
+    }
     
     var notificationCount: Int {
         return notifications.count
@@ -25,21 +29,20 @@ class NotificationListViewModel {
     }
     
     func fetchNotifications() {
-        APIService.shared.fetchNotifications { [weak self] result in
-            switch result {
-            case .success(let notifications):
-                self?.notifications = notifications
-                print("ViewModel: Notifications fetched and updateUI triggered.")
-                self?.updateUI?() // 確保此回調被觸發
-            case .failure(let error):
-                print("Error fetching notifications: \(error)")
-            }
+        NotificationManager.shared.fetchNotifications { [weak self] notifications in
+            self?.notifications = notifications
+            self?.updateUI?()
+            print("NotificationListViewModel fetched notifications")
         }
     }
     
     func markAsRead(at index: Int) {
-        notifications[index].status = true
-        updateUI?()
+        let notification = notifications[index]
+        NotificationManager.shared.markAsRead(notification: notification)
+        print("NotificationListViewModel marked notification at index \(index) as read")
+    }
+    
+    func areAllNotificationsRead() -> Bool {
+        return !notifications.contains(where: { !$0.status })
     }
 }
-

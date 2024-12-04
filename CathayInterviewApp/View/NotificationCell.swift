@@ -24,7 +24,7 @@ class NotificationCell: UITableViewCell {
     }
     
     private func setupUI() {
-       
+        contentView.backgroundColor = UIColor.fromHex("#F5F5F5")
         titleLabel.font = .boldSystemFont(ofSize: 16)
        
         messageLabel.font = .systemFont(ofSize: 14)
@@ -65,7 +65,6 @@ class NotificationCell: UITableViewCell {
         
         titleLabel.text = notification.title
         messageLabel.text = notification.message
-      
         redDotView.isHidden = notification.status
     }
 }

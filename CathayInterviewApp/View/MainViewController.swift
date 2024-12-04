@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     private let viewModel = MainViewModel()
-    private let notificationButton = UIButton(type: .system)
     private let redDotLabel = UILabel()
     
     struct RedDotPosition {
@@ -22,6 +21,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupBindings()
+        viewModel.fetchNotifications()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.fetchNotifications()
     }
     
@@ -60,9 +64,10 @@ class MainViewController: UIViewController {
     private func setupBindings() {
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
-                self?.redDotLabel.isHidden = !self!.viewModel.hasNotifications
+                let hasNotifications = self?.viewModel.hasNotifications ?? false
+                self?.redDotLabel.isHidden = !hasNotifications
+                print("MainViewController updated redDotLabel: hasNotifications = \(hasNotifications)")
             }
         }
     }
 }
-
