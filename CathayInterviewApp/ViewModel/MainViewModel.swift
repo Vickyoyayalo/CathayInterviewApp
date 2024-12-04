@@ -8,31 +8,23 @@
 import Foundation
 
 class MainViewModel {
-    private var notifications: [Notification] = [] {
-        didSet {
-            self.updateUI?()
+    var updateUI: (() -> Void)?
+    
+    init() {
+        NotificationManager.shared.addObserver { [weak self] in
+            self?.updateUI?()
+            print("MainViewModel notified to update UI")
         }
     }
-
-    var updateUI: (() -> Void)?
-
-    var notificationCount: Int {
-        notifications.count
-    }
-
+    
     var hasNotifications: Bool {
-        !notifications.isEmpty
+        return NotificationManager.shared.hasUnreadNotifications()
     }
-
+    
     func fetchNotifications() {
-        APIService.shared.fetchNotifications { [weak self] result in
-            switch result {
-            case .success(let notifications):
-                self?.notifications = notifications
-            case .failure(let error):
-                print("Error fetching notifications: \(error)")
-                self?.notifications = []
-            }
+        NotificationManager.shared.fetchNotifications { [weak self] _ in
+            self?.updateUI?()
+            print("MainViewModel fetched notifications")
         }
     }
 }
