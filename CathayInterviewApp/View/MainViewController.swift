@@ -34,7 +34,6 @@ class MainViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = UIColor.fromHex("#F5F5F5")
 
-        // Notification Button
         let notificationButton = UIButton(type: .system)
         notificationButton.setImage(UIImage(systemName: "bell"), for: .normal)
         notificationButton.tintColor = .black
