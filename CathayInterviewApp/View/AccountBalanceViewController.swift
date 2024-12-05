@@ -15,6 +15,7 @@ class AccountBalanceViewController: UIView {
     private let eyeButton = UIButton(type: .system)
 
     private var isBalanceHidden = true
+    private let viewModel = AccountBalanceViewModel()
 
     private enum Icon {
         static let hidden = "iconEye02Off"
@@ -86,7 +87,7 @@ class AccountBalanceViewController: UIView {
         addSubview(mainStack)
 
         NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            mainStack.topAnchor.constraint(equalTo: topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             mainStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -98,14 +99,12 @@ class AccountBalanceViewController: UIView {
     }
 
     @objc private func toggleVisibility() {
-        // 切換隱藏狀態
+       
         isBalanceHidden.toggle()
 
-        // 切換按鈕圖標
         let imageName = isBalanceHidden ? Icon.hidden : Icon.visible
         eyeButton.setImage(UIImage(named: imageName), for: .normal)
 
-        // 更新金額顯示
         usdLabel.text = isBalanceHidden ? "********" : "12,345.67"
         khrLabel.text = isBalanceHidden ? "********" : "4,000,000.00"
 

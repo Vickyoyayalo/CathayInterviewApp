@@ -26,7 +26,6 @@ class AccountBalanceViewModel {
             usdBalance = "********"
             khrBalance = "********"
         } else {
-            // 模擬實際數據
             usdBalance = "1,000.00"
             khrBalance = "4,000,000.00"
         }
