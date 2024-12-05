@@ -24,8 +24,11 @@
 		1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698CE2D0050E9009332BF /* NotificationCell.swift */; };
 		1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D02D005105009332BF /* NotificationListViewModel.swift */; };
 		1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D32D008D16009332BF /* NotificationManager.swift */; };
-		1CB698D62D01355B009332BF /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D52D01355B009332BF /* BalanceViewController.swift */; };
+		1CB698D62D01355B009332BF /* AccountBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D52D01355B009332BF /* AccountBalanceViewController.swift */; };
 		1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */; };
+		1CB698DA2D01A90E009332BF /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D92D01A90E009332BF /* Font.swift */; };
+		1CB698DD2D01B027009332BF /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698DC2D01B027009332BF /* SF-Pro-Text-Regular.otf */; };
+		1CB698DF2D01B038009332BF /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +51,11 @@
 		1CB698CE2D0050E9009332BF /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		1CB698D02D005105009332BF /* NotificationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewModel.swift; sourceTree = "<group>"; };
 		1CB698D32D008D16009332BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		1CB698D52D01355B009332BF /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		1CB698D52D01355B009332BF /* AccountBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceViewController.swift; sourceTree = "<group>"; };
 		1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceViewModel.swift; sourceTree = "<group>"; };
+		1CB698D92D01A90E009332BF /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		1CB698DC2D01B027009332BF /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +129,7 @@
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
 				1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */,
 				1CB698CE2D0050E9009332BF /* NotificationCell.swift */,
-				1CB698D52D01355B009332BF /* BalanceViewController.swift */,
+				1CB698D52D01355B009332BF /* AccountBalanceViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -139,6 +145,7 @@
 		1CB698C62D002814009332BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1CB698DB2D01AFFE009332BF /* Font */,
 				1CB698A72CFFF235009332BF /* Assets.xcassets */,
 				1CB698A12CFFF235009332BF /* Main.storyboard */,
 				1CB698A92CFFF235009332BF /* LaunchScreen.storyboard */,
@@ -160,6 +167,16 @@
 				1CB698D32D008D16009332BF /* NotificationManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		1CB698DB2D01AFFE009332BF /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */,
+				1CB698DC2D01B027009332BF /* SF-Pro-Text-Regular.otf */,
+				1CB698D92D01A90E009332BF /* Font.swift */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,7 +238,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CB698A82CFFF235009332BF /* Assets.xcassets in Resources */,
+				1CB698DF2D01B038009332BF /* SF-Pro-Text-Bold.otf in Resources */,
 				1CB698AB2CFFF235009332BF /* Base in Resources */,
+				1CB698DD2D01B027009332BF /* SF-Pro-Text-Regular.otf in Resources */,
 				1CB698A32CFFF235009332BF /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,8 +264,9 @@
 				1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */,
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
 				1CB698C82D002CB4009332BF /* MainViewController.swift in Sources */,
+				1CB698DA2D01A90E009332BF /* Font.swift in Sources */,
 				1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */,
-				1CB698D62D01355B009332BF /* BalanceViewController.swift in Sources */,
+				1CB698D62D01355B009332BF /* AccountBalanceViewController.swift in Sources */,
 				1CB698BB2D002664009332BF /* Account.swift in Sources */,
 				1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */,
 			);
