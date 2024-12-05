@@ -24,6 +24,8 @@
 		1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698CE2D0050E9009332BF /* NotificationCell.swift */; };
 		1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D02D005105009332BF /* NotificationListViewModel.swift */; };
 		1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D32D008D16009332BF /* NotificationManager.swift */; };
+		1CB698D62D01355B009332BF /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D52D01355B009332BF /* BalanceViewController.swift */; };
+		1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		1CB698CE2D0050E9009332BF /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		1CB698D02D005105009332BF /* NotificationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewModel.swift; sourceTree = "<group>"; };
 		1CB698D32D008D16009332BF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		1CB698D52D01355B009332BF /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 			children = (
 				1CB698BE2D0026B7009332BF /* MainViewModel.swift */,
 				1CB698D02D005105009332BF /* NotificationListViewModel.swift */,
+				1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
 				1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */,
 				1CB698CE2D0050E9009332BF /* NotificationCell.swift */,
+				1CB698D52D01355B009332BF /* BalanceViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -234,11 +240,13 @@
 				1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */,
 				1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */,
 				1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */,
+				1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */,
 				1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */,
 				1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */,
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
 				1CB698C82D002CB4009332BF /* MainViewController.swift in Sources */,
 				1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */,
+				1CB698D62D01355B009332BF /* BalanceViewController.swift in Sources */,
 				1CB698BB2D002664009332BF /* Account.swift in Sources */,
 				1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */,
 			);
