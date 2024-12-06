@@ -8,16 +8,19 @@
 import UIKit
 
 class AccountBalanceView: UIView {
+    var viewModel: AccountBalanceViewModel? {
+        didSet {
+            setupBindings()
+        }
+    }
     
-    private let viewModel = AccountBalanceViewModel()
+    var onToggleVisibility: (() -> Void)?
+    var onRefreshComplete: (() -> Void)?
     
     private let titleLabel = UILabel()
     private let eyeButton = UIButton(type: .system)
-    
     let usdLabel = UILabel()
     let khrLabel = UILabel()
-    
-    var onToggleVisibility: (() -> Void)?
     
     private enum Icon {
         static let hidden = "iconEye02Off"
@@ -27,15 +30,11 @@ class AccountBalanceView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupBindings()
-        viewModel.fetchBalances(apiType: "firstOpen")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
-        setupBindings()
-        viewModel.fetchBalances(apiType: "firstOpen")
     }
     
     private func setupUI() {
@@ -104,32 +103,26 @@ class AccountBalanceView: UIView {
     }
     
     private func setupBindings() {
+        guard let viewModel = viewModel else {
+            return
+        }
+    
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
-                self?.usdLabel.text = self?.viewModel.usdBalance
-                self?.khrLabel.text = self?.viewModel.khrBalance
+                guard let self = self else { return }
+                self.usdLabel.text = viewModel.usdBalance
+                self.khrLabel.text = viewModel.khrBalance
                 
-                let imageName = self?.viewModel.isBalanceHidden == true ? Icon.hidden : Icon.visible
-                self?.eyeButton.setImage(UIImage(named: imageName), for: .normal)
+                let imageName = viewModel.isBalanceHidden ? Icon.hidden : Icon.visible
+                self.eyeButton.setImage(UIImage(named: imageName), for: .normal)
+                
+                self.onRefreshComplete?()
             }
         }
     }
     
-    private func createAmountStack(title: String, valueLabel: UILabel) -> UIStackView {
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = Font.label
-        titleLabel.textColor = UIColor.labelColor
-        
-        let stack = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
-        stack.axis = .vertical
-        stack.spacing = 4
-        return stack
-    }
-    
     @objc private func toggleVisibility() {
-        viewModel.toggleBalanceVisibility()
+        viewModel?.toggleBalanceVisibility()
         onToggleVisibility?()
     }
 }
-

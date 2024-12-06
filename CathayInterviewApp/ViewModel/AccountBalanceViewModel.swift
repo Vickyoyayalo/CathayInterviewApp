@@ -8,48 +8,51 @@
 import Foundation
 
 class AccountBalanceViewModel {
-    
     private(set) var usdBalance: String = "********"
     private(set) var khrBalance: String = "********"
+    
     var isBalanceHidden: Bool = true {
         didSet {
             updateBalancesDisplay()
-            updateUI?()
         }
     }
     
+    var isFirstOpen: Bool = true
     var updateUI: (() -> Void)?
     
-    // 真實的金額數字（顯示前會先判斷 isBalanceHidden ）
     private var usdTotalAmount: Double = 0.0
     private var khrTotalAmount: Double = 0.0
     
     func toggleBalanceVisibility() {
         isBalanceHidden.toggle()
+        if !isBalanceHidden {
+            isFirstOpen = false
+        }
     }
     
     func fetchBalances(apiType: String) {
-        let usdSavingsURL = apiType == "firstOpen" ?
+        let apiToFetch = isFirstOpen ? "firstOpen" : apiType
+        let usdSavingsURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/usdSavings1.json" :
             "https://willywu0201.github.io/data/usdSavings2.json"
         
-        let usdFixedURL = apiType == "firstOpen" ?
+        let usdFixedURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/usdFixed1.json" :
             "https://willywu0201.github.io/data/usdFixed2.json"
         
-        let usdDigitalURL = apiType == "firstOpen" ?
+        let usdDigitalURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/usdDigital1.json" :
             "https://willywu0201.github.io/data/usdDigital2.json"
         
-        let khrSavingsURL = apiType == "firstOpen" ?
+        let khrSavingsURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/khrSavings1.json" :
             "https://willywu0201.github.io/data/khrSavings2.json"
         
-        let khrFixedURL = apiType == "firstOpen" ?
+        let khrFixedURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/khrFixed1.json" :
             "https://willywu0201.github.io/data/khrFixed2.json"
         
-        let khrDigitalURL = apiType == "firstOpen" ?
+        let khrDigitalURL = apiToFetch == "firstOpen" ?
             "https://willywu0201.github.io/data/khrDigital1.json" :
             "https://willywu0201.github.io/data/khrDigital2.json"
         
@@ -88,7 +91,6 @@ class AccountBalanceViewModel {
         }
         
         group.enter()
-        // KHR savings
         fetchAmount(from: khrSavingsURL, listKey: "savingsList") { result in
             if case .success(let amount) = result {
                 khrSavingAmount = amount
@@ -116,10 +118,9 @@ class AccountBalanceViewModel {
             self.usdTotalAmount = usdSavingAmount + usdFixedAmount + usdDigitalAmount
             self.khrTotalAmount = khrSavingAmount + khrFixedAmount + khrDigitalAmount
             
-            print("After fetch (apiType=\(apiType)): USD total = \(self.usdTotalAmount), KHR total = \(self.khrTotalAmount)")
+            print("After fetch (apiType=\(apiToFetch)): USD total = \(self.usdTotalAmount), KHR total = \(self.khrTotalAmount)")
             
             self.updateBalancesDisplay()
-            self.updateUI?()
         }
     }
     
@@ -131,10 +132,9 @@ class AccountBalanceViewModel {
             usdBalance = String(format: "%.2f", usdTotalAmount)
             khrBalance = String(format: "%.2f", khrTotalAmount)
         }
+        updateUI?()
     }
     
-    /// 傳入 URL 與對應的清單 Key ("savingsList", "fixedDepositList", "digitalList")
-    /// 回傳該清單中全部帳戶 balance 的加總。
     private func fetchAmount(from urlString: String, listKey: String, completion: @escaping (Result<Double, Error>) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "Invalid URL", code: -1)))
@@ -153,15 +153,11 @@ class AccountBalanceViewModel {
             }
             
             do {
-                // 解析 JSON
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let result = json["result"] as? [String: Any],
                    let accountList = result[listKey] as? [[String: Any]] {
-                    
-                    // 將所有的 "balance" 加總
-                    let total = accountList.reduce(0.0) { partialResult, accountDict in
-                        let balance = accountDict["balance"] as? Double ?? 0.0
-                        return partialResult + balance
+                    let total = accountList.reduce(0.0) { partial, dict in
+                        partial + (dict["balance"] as? Double ?? 0.0)
                     }
                     completion(.success(total))
                 } else {
@@ -173,3 +169,4 @@ class AccountBalanceViewModel {
         }.resume()
     }
 }
+
