@@ -50,10 +50,9 @@ class MainViewController: UIViewController {
         scrollView.addSubview(accountBalanceView)
         
         NSLayoutConstraint.activate([
-            accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            accountBalanceView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
-            accountBalanceView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+            accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 24),
+            accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -24),
+            accountBalanceView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -24)
         ])
     }
     
@@ -63,8 +62,9 @@ class MainViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = UIColor.fromHex("#F5F5F5")
         
+        view.backgroundColor = .systemBackground
+      
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.widthAnchor.constraint(equalToConstant: 48).isActive = true
