@@ -47,13 +47,33 @@ class MainViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
         accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(accountBalanceView)
         
+        let menuIconsView = MenuIconsView.withDefaultIcons()
+        menuIconsView.translatesAutoresizingMaskIntoConstraints = false
+       
+        scrollView.addSubview(accountBalanceView)
+        scrollView.addSubview(menuIconsView)
+
         NSLayoutConstraint.activate([
-            accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 24),
-            accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -24),
-            accountBalanceView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -24)
+            
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        
+            accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            accountBalanceView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
+            accountBalanceView.heightAnchor.constraint(equalToConstant: 200),
+
+            menuIconsView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            menuIconsView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            menuIconsView.topAnchor.constraint(equalTo: accountBalanceView.bottomAnchor, constant: 8),
+            menuIconsView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -16),
+            menuIconsView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48)
         ])
+
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +84,7 @@ class MainViewController: UIViewController {
     private func setupUI() {
         
         view.backgroundColor = .systemBackground
-      
+        
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.widthAnchor.constraint(equalToConstant: 48).isActive = true
@@ -78,7 +98,7 @@ class MainViewController: UIViewController {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         
         container.addSubview(avatarImageView)
-       
+        
         NSLayoutConstraint.activate([
             avatarImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
             avatarImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
@@ -130,7 +150,6 @@ class MainViewController: UIViewController {
         view.addSubview(accountBalanceView)
         
         NSLayoutConstraint.activate([
-            accountBalanceView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             accountBalanceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             accountBalanceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
