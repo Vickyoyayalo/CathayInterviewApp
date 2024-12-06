@@ -8,12 +8,15 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
+    private let scrollView = UIScrollView()
+    private let accountBalanceView = AccountBalanceView()
     private let viewModel = MainViewModel()
     private let accountBalanceViewModel = AccountBalanceViewModel()
     private let redDotLabel = UILabel()
-    private let accountBalanceView = AccountBalanceViewController()
 
+    private let refreshControl = UIRefreshControl()
+    
     struct RedDotPosition {
         static let offsetX: CGFloat = -3
         static let offsetY: CGFloat = 3
@@ -24,6 +27,44 @@ class MainViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.fetchNotifications()
+        
+        // 設定 scrollView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // Add refreshControl
+        scrollView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        // 加入 accountBalanceView
+        accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(accountBalanceView)
+        
+        NSLayoutConstraint.activate([
+            accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            accountBalanceView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
+            accountBalanceView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+        ])
+        
+        // ViewModel Update
+        accountBalanceViewModel.updateUI = { [weak self] in
+            DispatchQueue.main.async {
+                print("UI update: USD Balance = \(self?.accountBalanceViewModel.usdBalance ?? ""), KHR Balance = \(self?.accountBalanceViewModel.khrBalance ?? "")")
+                
+                self?.accountBalanceView.usdLabel.text = self?.accountBalanceViewModel.usdBalance
+                self?.accountBalanceView.khrLabel.text = self?.accountBalanceViewModel.khrBalance
+                self?.refreshControl.endRefreshing()
+            }
+        }
+        accountBalanceViewModel.fetchBalances(apiType: "firstOpen")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -85,5 +126,10 @@ class MainViewController: UIViewController {
     @objc private func notificationButtonTapped() {
         let notificationListVC = NotificationListViewController()
         navigationController?.pushViewController(notificationListVC, animated: true)
+    }
+    
+    @objc private func handleRefresh() {
+        accountBalanceViewModel.isBalanceHidden = false
+        accountBalanceViewModel.fetchBalances(apiType: "pullRefresh")
     }
 }
