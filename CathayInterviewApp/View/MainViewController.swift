@@ -50,29 +50,42 @@ class MainViewController: UIViewController {
         
         let menuIconsView = MenuIconsView.withDefaultIcons()
         menuIconsView.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         scrollView.addSubview(accountBalanceView)
         scrollView.addSubview(menuIconsView)
-
+        
         NSLayoutConstraint.activate([
             
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
+            
             accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
             accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             accountBalanceView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
             accountBalanceView.heightAnchor.constraint(equalToConstant: 200),
-
+            
             menuIconsView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
             menuIconsView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             menuIconsView.topAnchor.constraint(equalTo: accountBalanceView.bottomAnchor, constant: 8),
             menuIconsView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -16),
             menuIconsView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48)
         ])
-
+        
+        //TO-DO 會擋到 menuIconsView
+        let favoriteListView = FavoriteListView()
+        favoriteListView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(favoriteListView)
+        
+        NSLayoutConstraint.activate([
+            favoriteListView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            favoriteListView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            favoriteListView.topAnchor.constraint(equalTo: menuIconsView.bottomAnchor, constant: 16),
+            favoriteListView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -16),
+            favoriteListView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
+            favoriteListView.heightAnchor.constraint(equalToConstant: 100) // 根据内容动态调整高度
+        ])
         
     }
     

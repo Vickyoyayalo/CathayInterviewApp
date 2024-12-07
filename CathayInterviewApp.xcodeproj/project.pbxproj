@@ -31,6 +31,11 @@
 		1CB698DF2D01B038009332BF /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */; };
 		1CB698E12D02F1D0009332BF /* GradientMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698E02D02F1D0009332BF /* GradientMaskView.swift */; };
 		1CB698E32D0331DF009332BF /* MenuIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698E22D0331DF009332BF /* MenuIconsView.swift */; };
+		1CDDF02C2D03CDF60012C1CA /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF02B2D03CDF60012C1CA /* Favorite.swift */; };
+		1CDDF02E2D03CE3C0012C1CA /* FavoriteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */; };
+		1CDDF0302D03CE650012C1CA /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF02F2D03CE650012C1CA /* FavoriteListViewController.swift */; };
+		1CDDF0322D03CE990012C1CA /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF0312D03CE990012C1CA /* FavoriteCell.swift */; };
+		1CDDF0342D03CF050012C1CA /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF0332D03CF050012C1CA /* FavoriteListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +65,11 @@
 		1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		1CB698E02D02F1D0009332BF /* GradientMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMaskView.swift; sourceTree = "<group>"; };
 		1CB698E22D0331DF009332BF /* MenuIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIconsView.swift; sourceTree = "<group>"; };
+		1CDDF02B2D03CDF60012C1CA /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewModel.swift; sourceTree = "<group>"; };
+		1CDDF02F2D03CE650012C1CA /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
+		1CDDF0312D03CE990012C1CA /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
+		1CDDF0332D03CF050012C1CA /* FavoriteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				1CB698B82D0025F3009332BF /* Notification.swift */,
+				1CDDF02B2D03CDF60012C1CA /* Favorite.swift */,
 				1CB698BA2D002664009332BF /* Account.swift */,
 			);
 			path = Model;
@@ -121,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				1CB698BE2D0026B7009332BF /* MainViewModel.swift */,
+				1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */,
 				1CB698D02D005105009332BF /* NotificationListViewModel.swift */,
 				1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */,
 			);
@@ -131,10 +143,13 @@
 			isa = PBXGroup;
 			children = (
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
+				1CDDF0332D03CF050012C1CA /* FavoriteListView.swift */,
 				1CB698E22D0331DF009332BF /* MenuIconsView.swift */,
 				1CB698E02D02F1D0009332BF /* GradientMaskView.swift */,
 				1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */,
+				1CDDF02F2D03CE650012C1CA /* FavoriteListViewController.swift */,
 				1CB698CE2D0050E9009332BF /* NotificationCell.swift */,
+				1CDDF0312D03CE990012C1CA /* FavoriteCell.swift */,
 				1CB698D52D01355B009332BF /* AccountBalanceView.swift */,
 			);
 			path = View;
@@ -266,7 +281,9 @@
 				1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */,
 				1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */,
 				1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */,
+				1CDDF0342D03CF050012C1CA /* FavoriteListView.swift in Sources */,
 				1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */,
+				1CDDF02E2D03CE3C0012C1CA /* FavoriteListViewModel.swift in Sources */,
 				1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */,
 				1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */,
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
@@ -274,8 +291,11 @@
 				1CB698DA2D01A90E009332BF /* Font.swift in Sources */,
 				1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */,
 				1CB698D62D01355B009332BF /* AccountBalanceView.swift in Sources */,
+				1CDDF02C2D03CDF60012C1CA /* Favorite.swift in Sources */,
 				1CB698BB2D002664009332BF /* Account.swift in Sources */,
 				1CB698BF2D0026B7009332BF /* MainViewModel.swift in Sources */,
+				1CDDF0302D03CE650012C1CA /* FavoriteListViewController.swift in Sources */,
+				1CDDF0322D03CE990012C1CA /* FavoriteCell.swift in Sources */,
 				1CB698E32D0331DF009332BF /* MenuIconsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
