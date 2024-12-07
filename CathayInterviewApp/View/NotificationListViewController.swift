@@ -58,7 +58,7 @@ class NotificationListViewController: UIViewController {
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
-                print("NotificationListViewController reloaded tableView")
+                
             }
         }
     }
@@ -66,7 +66,6 @@ class NotificationListViewController: UIViewController {
 
 extension NotificationListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of rows: \(viewModel.notificationCount)") // 打印行數，檢查是否為 0
         return viewModel.notificationCount
     }
     
@@ -76,7 +75,6 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
             return UITableViewCell()
         }
         let notification = viewModel.notification(at: indexPath.row)
-        print("Notification: \(notification)")
         cell.configure(with: notification)
         return cell
     }
@@ -84,6 +82,5 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.markAsRead(at: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
-        print("Did select notification at index \(indexPath.row)")
     }
 }
