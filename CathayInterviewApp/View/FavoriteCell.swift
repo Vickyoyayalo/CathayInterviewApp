@@ -7,41 +7,39 @@
 
 import UIKit
 
-class FavoriteCell: UITableViewCell {
-    private let nicknameLabel = UILabel()
-    private let transTypeImageView = UIImageView()
+class FavoriteCell: UICollectionViewCell {
+    private let imageView = UIImageView()
+    private let label = UILabel()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Font.FavoriteName
+        label.textColor = .sublabelColor
+        label.textAlignment = .center
+        label.numberOfLines = 2
+
+        contentView.addSubview(imageView)
+        contentView.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 56),
+            imageView.heightAnchor.constraint(equalToConstant: 56),
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupUI() {
-        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-        transTypeImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.addSubview(nicknameLabel)
-        contentView.addSubview(transTypeImageView)
-
-        NSLayoutConstraint.activate([
-            transTypeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            transTypeImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            transTypeImageView.widthAnchor.constraint(equalToConstant: 40),
-            transTypeImageView.heightAnchor.constraint(equalToConstant: 40),
-            
-            nicknameLabel.leadingAnchor.constraint(equalTo: transTypeImageView.trailingAnchor, constant: 16),
-            nicknameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            nicknameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
-    }
-
-    func configure(with item: FavoriteItem) {
-        nicknameLabel.text = item.nickname
-        transTypeImageView.image = UIImage(named: item.transType) // Map icons to names
+    func configure(with image: UIImage, nickname: String) {
+        imageView.image = image
+        label.text = nickname
     }
 }
-
