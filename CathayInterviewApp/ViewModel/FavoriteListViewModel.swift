@@ -66,4 +66,18 @@ class FavoriteListViewModel {
         default: return nil
         }
     }
+    
+    func item(at index: Int) -> FavoriteItem? {
+        return favoriteItems.indices.contains(index) ? favoriteItems[index] : nil
+    }
+    
+    func moveItem(from sourceIndex: Int, to destinationIndex: Int) {
+        guard sourceIndex != destinationIndex,
+              sourceIndex < favoriteItems.count,
+              destinationIndex < favoriteItems.count else { return }
+        let item = favoriteItems.remove(at: sourceIndex)
+        favoriteItems.insert(item, at: destinationIndex)
+        // 記得呼叫 onDataUpdated 或其他通知方式讓 collectionView reload
+        onDataUpdated?()
+    }
 }

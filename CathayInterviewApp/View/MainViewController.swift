@@ -80,8 +80,11 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         
         accountBalanceView.onToggleVisibility = { [weak self] in
             guard let self = self else { return }
-            accountBalanceView.viewModel?.isBalanceHidden = false
+            if self.accountBalanceView.viewModel?.isBalanceHidden == false {
+//                favoriteListViewModel.fetchFavoriteList(isEmpty: false)
+            }
         }
+        favoriteListViewModel.fetchFavoriteList(isEmpty: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -194,4 +197,5 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             favoriteListViewModel.fetchFavoriteList(isEmpty: true)
         }
     }
+
 }

@@ -22,7 +22,7 @@ class FavoriteListView: UIView {
     }
 
     override init(frame: CGRect) {
-        // 初始化 CollectionView
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 80, height: 100)
@@ -39,6 +39,9 @@ class FavoriteListView: UIView {
     }
 
     private func setupUI() {
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
+        collectionView.addGestureRecognizer(longPressGesture)
        
         titleLabel.text = "My Favorite"
         titleLabel.font = Font.title
@@ -121,5 +124,40 @@ extension FavoriteListView: UICollectionViewDataSource {
             cell.configure(with: image, nickname: item.nickname)
         }
         return cell
+    }
+    
+    @objc private func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
+                return
+            }
+            // 如果 item 數量小於等於 4，則不允許編輯
+            guard let count = favoriteListViewModel?.itemCount, count > 4 else {
+                return
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: collectionView))
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+
+}
+
+extension FavoriteListView: UICollectionViewDelegate {
+    // 啟用互動式移動 item 的條件
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        // 只有在 item 數量 > 4 時才允許移動
+        guard let count = favoriteListViewModel?.itemCount else { return false }
+        return count > 4
+    }
+
+    // 實際執行資料重新排序
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        favoriteListViewModel?.moveItem(from: sourceIndexPath.item, to: destinationIndexPath.item)
     }
 }
