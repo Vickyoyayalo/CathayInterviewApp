@@ -7,12 +7,13 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    
+class MainViewController: UIViewController, UIScrollViewDelegate {
+    private var hasScrolled = false
     private let scrollView = UIScrollView()
-    private let accountBalanceView = AccountBalanceView()
     private let viewModel = MainViewModel()
+    private let accountBalanceView = AccountBalanceView()
     private let accountBalanceViewModel = AccountBalanceViewModel()
+    private let favoriteListViewModel = FavoriteListViewModel()
     private let redDotLabel = UILabel()
     private let refreshControl = UIRefreshControl()
     
@@ -23,25 +24,17 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         
         setupUI()
         setupBindings()
         viewModel.fetchNotifications()
         
         accountBalanceView.viewModel = accountBalanceViewModel
-        print("AccountBalanceView's viewModel is set: \(accountBalanceView.viewModel === accountBalanceViewModel)")
-        
         accountBalanceViewModel.fetchBalances(apiType: "firstOpen")
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
-        
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
         
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
@@ -50,30 +43,48 @@ class MainViewController: UIViewController {
         
         let menuIconsView = MenuIconsView.withDefaultIcons()
         menuIconsView.translatesAutoresizingMaskIntoConstraints = false
-       
+        
+        let favoriteListView = FavoriteListView()
+        favoriteListView.favoriteListViewModel = favoriteListViewModel
+        favoriteListView.translatesAutoresizingMaskIntoConstraints = false
+        
         scrollView.addSubview(accountBalanceView)
         scrollView.addSubview(menuIconsView)
-
+        scrollView.addSubview(favoriteListView)
+        
         NSLayoutConstraint.activate([
             
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
+            
             accountBalanceView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
             accountBalanceView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             accountBalanceView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
             accountBalanceView.heightAnchor.constraint(equalToConstant: 200),
-
+            
             menuIconsView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
             menuIconsView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             menuIconsView.topAnchor.constraint(equalTo: accountBalanceView.bottomAnchor, constant: 8),
-            menuIconsView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -16),
-            menuIconsView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48)
+            menuIconsView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
+            
+            favoriteListView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            favoriteListView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            favoriteListView.topAnchor.constraint(equalTo: menuIconsView.bottomAnchor, constant: 16),
+            favoriteListView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
+            favoriteListView.heightAnchor.constraint(equalToConstant: 130)
         ])
-
         
+        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: favoriteListView.bottomAnchor).isActive = true
+        
+        accountBalanceView.onToggleVisibility = { [weak self] in
+            guard let self = self else { return }
+            if self.accountBalanceView.viewModel?.isBalanceHidden == false {
+//                favoriteListViewModel.fetchFavoriteList(isEmpty: false)
+            }
+        }
+        favoriteListViewModel.fetchFavoriteList(isEmpty: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,5 +188,14 @@ class MainViewController: UIViewController {
     
     @objc private func handleRefresh() {
         accountBalanceViewModel.fetchBalances(apiType: "pullRefresh")
+        favoriteListViewModel.fetchFavoriteList(isEmpty: false)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !hasScrolled {
+            hasScrolled = true
+            favoriteListViewModel.fetchFavoriteList(isEmpty: true)
+        }
+    }
+
 }
