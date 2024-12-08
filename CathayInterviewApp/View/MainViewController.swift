@@ -16,6 +16,9 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     private let favoriteListViewModel = FavoriteListViewModel()
     private let redDotLabel = UILabel()
     private let refreshControl = UIRefreshControl()
+    private var isBannerVisible = false
+    private let adBannerView = AdBannerView()
+    private let adBannerViewModel = AdBannerViewModel()
     
     struct RedDotPosition {
         static let offsetX: CGFloat = -3
@@ -39,18 +42,23 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
-        accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
-        
         let menuIconsView = MenuIconsView.withDefaultIcons()
-        menuIconsView.translatesAutoresizingMaskIntoConstraints = false
-        
         let favoriteListView = FavoriteListView()
-        favoriteListView.favoriteListViewModel = favoriteListViewModel
-        favoriteListView.translatesAutoresizingMaskIntoConstraints = false
         
+        favoriteListView.favoriteListViewModel = favoriteListViewModel
+        adBannerView.viewModel = adBannerViewModel
+        
+        accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
+        menuIconsView.translatesAutoresizingMaskIntoConstraints = false
+        favoriteListView.translatesAutoresizingMaskIntoConstraints = false
+        adBannerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        adBannerView.isHidden = true
+
         scrollView.addSubview(accountBalanceView)
         scrollView.addSubview(menuIconsView)
         scrollView.addSubview(favoriteListView)
+        scrollView.addSubview(adBannerView)
         
         NSLayoutConstraint.activate([
             
@@ -73,10 +81,17 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             favoriteListView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             favoriteListView.topAnchor.constraint(equalTo: menuIconsView.bottomAnchor, constant: 16),
             favoriteListView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
-            favoriteListView.heightAnchor.constraint(equalToConstant: 130)
+            favoriteListView.heightAnchor.constraint(equalToConstant: 130),
+            
+            adBannerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            adBannerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            adBannerView.topAnchor.constraint(equalTo: favoriteListView.bottomAnchor, constant: 16),
+            adBannerView.heightAnchor.constraint(equalToConstant: 200),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: adBannerView.bottomAnchor)
         ])
-        
-        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: favoriteListView.bottomAnchor).isActive = true
+        adBannerView.heightAnchor.constraint(equalToConstant: isBannerVisible ? 200 : 0).isActive = true
+
+        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: adBannerView.bottomAnchor).isActive = true
         
         accountBalanceView.onToggleVisibility = { [weak self] in
             guard let self = self else { return }
@@ -85,6 +100,8 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         favoriteListViewModel.fetchFavoriteList(isEmpty: true)
+        adBannerView.startAutoScroll()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -189,6 +206,11 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     @objc private func handleRefresh() {
         accountBalanceViewModel.fetchBalances(apiType: "pullRefresh")
         favoriteListViewModel.fetchFavoriteList(isEmpty: false)
+        if !isBannerVisible {
+                isBannerVisible = true
+                adBannerView.isHidden = false
+                scrollView.layoutIfNeeded() // 更新 UI
+            }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
