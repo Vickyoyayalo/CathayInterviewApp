@@ -5,8 +5,8 @@
 //  Created by Vickyhereiam on 2024/12/7.
 //
 
-import Foundation
 import UIKit
+import Foundation
 
 class FavoriteListViewModel {
     private var favoriteItems: [FavoriteItem] = []

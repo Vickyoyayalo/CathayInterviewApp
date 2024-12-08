@@ -26,10 +26,9 @@ class FavoriteCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 56),
-            imageView.heightAnchor.constraint(equalToConstant: 56),
+
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
