@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1CB225AC2D05A34B00F6E2BF /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AB2D05A34B00F6E2BF /* BannerCell.swift */; };
 		1CB225AE2D05A36200F6E2BF /* PlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */; };
+		1CB225B02D05E23200F6E2BF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */; };
 		1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989B2CFFF235009332BF /* AppDelegate.swift */; };
 		1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989D2CFFF235009332BF /* SceneDelegate.swift */; };
 		1CB698A02CFFF235009332BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989F2CFFF235009332BF /* ViewController.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		1CB225AB2D05A34B00F6E2BF /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
 		1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderCell.swift; sourceTree = "<group>"; };
+		1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CB698982CFFF235009332BF /* CathayInterviewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CathayInterviewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB6989B2CFFF235009332BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CB6989D2CFFF235009332BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
+				1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */,
 				1CDDF0332D03CF050012C1CA /* FavoriteListView.swift */,
 				1CD77A4C2D052467001716EE /* AdBannerView.swift */,
 				1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */,
@@ -292,6 +295,7 @@
 				1CB698E12D02F1D0009332BF /* GradientMaskView.swift in Sources */,
 				1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */,
 				1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */,
+				1CB225B02D05E23200F6E2BF /* MainTabBarController.swift in Sources */,
 				1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */,
 				1CDDF0342D03CF050012C1CA /* FavoriteListView.swift in Sources */,
 				1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */,
