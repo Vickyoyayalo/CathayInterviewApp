@@ -25,42 +25,20 @@ class FavoriteListViewModel {
     }
     
     func fetchFavoriteList(isEmpty: Bool) {
-        let urlString = isEmpty
-        ? "https://willywu0201.github.io/data/emptyFavoriteList.json"
-        : "https://willywu0201.github.io/data/favoriteList.json"
-        
-        guard let url = URL(string: urlString) else {
-            onError?("Invalid URL")
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+        APIService.shared.fetchFavoriteList(isEmpty: isEmpty) { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
-                self.onError?("Network error: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else {
-                self.onError?("No data received")
-                return
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(FavoriteResponse.self, from: data)
-                var serverItems = response.result?.favoriteList ?? []
-                
-                self.mergeLocalOrder(with: &serverItems)
-                
-                self.favoriteItems = serverItems
-                self.isEmpty = self.favoriteItems.isEmpty
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(var serverItems):
+                    self.mergeLocalOrder(with: &serverItems)
+                    self.favoriteItems = serverItems
+                    self.isEmpty = self.favoriteItems.isEmpty
                     self.onDataUpdated?()
+                case .failure(let error):
+                    self.onError?("Network or decoding error: \(error.localizedDescription)")
                 }
-            } catch {
-                self.onError?("Decoding error: \(error.localizedDescription)")
             }
-        }.resume()
+        }
     }
     
     private func mergeLocalOrder(with serverItems: inout [FavoriteItem]) {

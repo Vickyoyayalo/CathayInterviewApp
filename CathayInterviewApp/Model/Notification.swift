@@ -41,7 +41,9 @@ struct Notification: Equatable, Decodable, Identifiable {
         self.id = Notification.generateID(title: self.title, message: self.message, updateDateTime: self.updateDateTime)
     }
     
-    // use title、message and updateDateTime to create an hash value into id
+    // MARK: - Helper Methods
+    
+    // Combines title, message, and updateDateTime to generate a unique ID.
     static func generateID(title: String, message: String, updateDateTime: String) -> String {
         let combinedString = title + message + updateDateTime
         return String(combinedString.hashValue)
@@ -61,10 +63,3 @@ struct Notification: Equatable, Decodable, Identifiable {
         return rawDateTime
     }
 }
-
-
-
-
-
-
-

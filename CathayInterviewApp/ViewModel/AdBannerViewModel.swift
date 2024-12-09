@@ -11,9 +11,17 @@ class AdBannerViewModel {
     var banners: [UIImage] = []
     private var timer: Timer?
     private var currentIndex = 0
+    var isFirstLoad: Bool = true
+    
     var onDataUpdated: (() -> Void)?
     var onAutoScroll: ((Int) -> Void)?
     
+    
+    func loadBannersWithPlaceholder() {
+        isFirstLoad = true
+        banners = []
+        onDataUpdated?()
+    }
     
     func loadBanners() {
         self.banners = [
@@ -26,9 +34,15 @@ class AdBannerViewModel {
         onDataUpdated?()
     }
     
+    
     func startAutoScroll() {
-        guard !banners.isEmpty else { return }
         stopAutoScroll()
+        
+        guard banners.count > 1 else {
+            print("Not enough banners to auto-scroll")
+            return
+        }
+        
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
             guard let self = self, !self.banners.isEmpty else { return }
             self.currentIndex = (self.currentIndex + 1) % self.banners.count

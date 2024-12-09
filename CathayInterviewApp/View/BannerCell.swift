@@ -9,14 +9,28 @@ import UIKit
 import Foundation
 
 class BannerCell: UICollectionViewCell {
-    private let imageView = UIImageView()
 
+    private let imageView = UIImageView()
+    
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupUI()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Setup UI
+    
+    private func setupUI() {
+        // Configure imageView properties
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
-
+        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -24,11 +38,9 @@ class BannerCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    
+    // MARK: - Configure Cell
+    
     func configure(with image: UIImage) {
         imageView.image = image
     }
