@@ -4,6 +4,7 @@
 //
 //  Created by Vickyhereiam on 2024/12/4.
 //
+
 import Foundation
 
 class NotificationManager {
@@ -38,7 +39,7 @@ class NotificationManager {
             guard let self = self else { return }
             switch result {
             case .success(let fetchedNotifications):
-               
+                
                 self.notifications = fetchedNotifications.map { notification in
                     var updatedNotification = notification
                     if self.readNotificationIDs.contains(notification.id) {
