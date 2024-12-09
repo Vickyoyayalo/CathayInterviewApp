@@ -8,6 +8,7 @@
 import UIKit
 
 class AccountBalanceView: UIView {
+    
     private let usdMaskView = GradientMaskView()
     private let khrMaskView = GradientMaskView()
     
@@ -31,6 +32,8 @@ class AccountBalanceView: UIView {
         static let visible = "iconEye01On"
     }
     
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -41,8 +44,11 @@ class AccountBalanceView: UIView {
         setupUI()
     }
 
+    // MARK: - Setup UI
+    
     private func setupUI() {
         
+        // Title Section
         titleLabel.text = "My Account Balance"
         titleLabel.font = Font.title
         titleLabel.textColor = UIColor.titleColor
@@ -55,6 +61,7 @@ class AccountBalanceView: UIView {
         titleStack.spacing = 8
         titleStack.alignment = .center
         
+        // USD Balance Section
         let usdTitleLabel = UILabel()
         usdTitleLabel.text = "USD"
         usdTitleLabel.font = Font.label
@@ -69,6 +76,7 @@ class AccountBalanceView: UIView {
         usdStack.spacing = 4
         usdStack.alignment = .leading
         
+        // KHR Balance Section
         let khrTitleLabel = UILabel()
         khrTitleLabel.text = "KHR"
         khrTitleLabel.font = Font.label
@@ -86,10 +94,12 @@ class AccountBalanceView: UIView {
         khrStack.spacing = 4
         khrStack.alignment = .leading
         
+        // Balance Stack
         let balanceStack = UIStackView(arrangedSubviews: [usdStack, khrStack])
         balanceStack.axis = .vertical
         balanceStack.spacing = 16
         
+        // Main Stack
         let mainStack = UIStackView(arrangedSubviews: [titleStack, balanceStack])
         mainStack.axis = .vertical
         mainStack.spacing = 16
@@ -128,6 +138,8 @@ class AccountBalanceView: UIView {
         ])
     }
 
+    // MARK: - Setup Bindings
+    
     private func setupBindings() {
         guard let viewModel = viewModel else { return }
         viewModel.updateUI = { [weak self] in
@@ -137,6 +149,8 @@ class AccountBalanceView: UIView {
             }
         }
     }
+    
+    // MARK: - UI Refresh
     
     private func refreshUI() {
         guard let viewModel = viewModel else { return }
@@ -166,10 +180,14 @@ class AccountBalanceView: UIView {
         }
     }
 
+    // MARK: - Actions
+    
     @objc private func toggleVisibility() {
         viewModel?.toggleBalanceVisibility()
         onToggleVisibility?()
     }
+    
+    // MARK: - Shimmer Effect
     
     private func startShimmer() {
         usdMaskView.startShimmer()
@@ -183,4 +201,3 @@ class AccountBalanceView: UIView {
         khrMaskView.stopShimmer()
     }
 }
-

@@ -23,14 +23,14 @@ struct Notification: Equatable, Decodable, Identifiable {
     let message: String
     var status: Bool
     let updateDateTime: String
-
+    
     enum CodingKeys: String, CodingKey {
         case title
         case message
         case status
         case updateDateTime
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try container.decode(String.self, forKey: .title)
@@ -40,13 +40,15 @@ struct Notification: Equatable, Decodable, Identifiable {
         self.updateDateTime = Notification.standardizeDateTime(rawDateTime)
         self.id = Notification.generateID(title: self.title, message: self.message, updateDateTime: self.updateDateTime)
     }
-
-    // use title、message and updateDateTime to create an hash value into id
+    
+    // MARK: - Helper Methods
+    
+    // Combines title, message, and updateDateTime to generate a unique ID.
     static func generateID(title: String, message: String, updateDateTime: String) -> String {
         let combinedString = title + message + updateDateTime
         return String(combinedString.hashValue)
     }
-
+    
     static func standardizeDateTime(_ rawDateTime: String) -> String {
         let dateFormats = ["yyyy/MM/dd HH:mm:ss", "HH:mm:ss yyyy/MM/dd", "yyyy/MM/dd HH:mm", "HH:mm yyyy/MM/dd"]
         let formatter = DateFormatter()
@@ -61,10 +63,3 @@ struct Notification: Equatable, Decodable, Identifiable {
         return rawDateTime
     }
 }
-
-
-
-
-
-
-

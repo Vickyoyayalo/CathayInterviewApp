@@ -15,7 +15,7 @@ class AdBannerView: UIView {
     var viewModel: AdBannerViewModel? {
         didSet {
             setupBindings()
-            viewModel?.onDataUpdated?()
+            viewModel?.loadBannersWithPlaceholder()
         }
     }
     
@@ -38,7 +38,7 @@ class AdBannerView: UIView {
             layout.itemSize = CGSize(width: collectionView.bounds.width, height: 120)
         }
     }
-
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

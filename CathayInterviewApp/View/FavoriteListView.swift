@@ -8,12 +8,17 @@
 import UIKit
 
 class FavoriteListView: UIView {
+    
+    // MARK: - UI Components
+    
     private let titleLabel = UILabel()
     private let moreButton = UIButton(type: .system)
     private let emptyImageView = UIImageView()
     private let emptyLabel = UILabel()
     private let stackView = UIStackView()
     private let collectionView: UICollectionView
+    
+    // MARK: - Properties
     
     private var currentPage = 0
     
@@ -23,8 +28,9 @@ class FavoriteListView: UIView {
         }
     }
     
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 80, height: 100)
@@ -40,8 +46,9 @@ class FavoriteListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup Methods
+    
     private func setupUI() {
-        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
         collectionView.addGestureRecognizer(longPressGesture)
         
@@ -96,8 +103,8 @@ class FavoriteListView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            
         ])
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FavoriteCell.self, forCellWithReuseIdentifier: "FavoriteCell")
@@ -113,35 +120,18 @@ class FavoriteListView: UIView {
         }
     }
     
+    // MARK: - Actions
+    
     @objc private func handleMoreButtonTapped() {
         guard let itemCount = favoriteListViewModel?.itemCount, itemCount > 0 else { return }
-       
         let itemsPerPage = 4
         let totalPages = Int(ceil(Double(itemCount) / Double(itemsPerPage)))
-     
         currentPage = (currentPage + 1) % totalPages
         let nextIndex = currentPage * itemsPerPage
-        
         if nextIndex < itemCount {
             let indexPath = IndexPath(item: nextIndex, section: 0)
             collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         }
-    }
-}
-
-
-extension FavoriteListView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriteListViewModel?.itemCount ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteCell", for: indexPath) as! FavoriteCell
-        if let item = favoriteListViewModel?.item(at: indexPath.row),
-           let image = favoriteListViewModel?.icon(for: item.transType) {
-            cell.configure(with: image, nickname: item.nickname)
-        }
-        return cell
     }
     
     @objc private func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
@@ -162,11 +152,30 @@ extension FavoriteListView: UICollectionViewDataSource {
             collectionView.cancelInteractiveMovement()
         }
     }
-    
 }
 
+// MARK: - UICollectionViewDataSource
+
+extension FavoriteListView: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return favoriteListViewModel?.itemCount ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteCell", for: indexPath) as! FavoriteCell
+        if let item = favoriteListViewModel?.item(at: indexPath.row),
+           let image = favoriteListViewModel?.icon(for: item.transType) {
+            cell.configure(with: image, nickname: item.nickname)
+        }
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
 extension FavoriteListView: UICollectionViewDelegate {
-  
+    
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         guard let count = favoriteListViewModel?.itemCount else { return false }
         return count > 4
