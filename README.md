@@ -1,12 +1,25 @@
-# 📱 CathayInterviewApp
+# 📱 Cathay Interview App
 
-**CathayInterviewApp** 是一款專為國泰金控 iOS 面試開發的測試應用
+App 名稱: **瑋琪 iOS 面試**  
+專為國泰金控 iOS 面試開發的 app。
 
-感謝國泰金控提供這次寶貴的面試機會，我針對指定需求開發了 CathayInterviewApp，基於 UIKit 完成所有核心功能，並挑戰多項加分功能以提升用戶體驗與應用效能。專案設計中注重架構規劃與代碼品質，力求展現對細節的專注。
+感謝國泰金控提供這次寶貴的面試機會，我針對指定需求開發了 **CathayInterviewApp**，基於 UIKit 完成所有核心功能，並挑戰多項加分功能以提升用戶體驗與應用效能。專案設計中注重架構規劃與代碼品質，力求展現對細節的專注。
 
 期望能藉由此專案，與國泰金控團隊合作，結合我的技術專長，助力貴公司打造更優質的數位化產品！
 
-專案實作概要如下：
+---
+
+## 🗂️ 目錄
+- [🔧 開發環境](#-開發環境)
+- [🚀 實作功能](#-實作功能)
+- [⭐ 加分功能實作 (Plus)](#-加分功能實作-plus)
+- [🛠️ 技術亮點](#️-技術亮點)
+- [📋 架構圖](#-架構圖)
+- [🌳 Git Flow 開發流程](#-git-flow-開發流程)
+- [🔍 安裝與測試](#-安裝與測試)
+- [📞 請聯繫我](#-請聯繫我)
+
+---
 
 ## 🔧 **開發環境**
 - **開發工具**: Xcode 15.4
@@ -37,7 +50,7 @@
 
 ---
 
-## ⭐ **加分功能 (Plus)**
+## ⭐ **加分功能實作 (Plus)**
 
 ### 🔴 **通知列表的動態紅點更新**
 - **功能亮點**：
@@ -69,11 +82,6 @@
   - 使用 `Timer` 和 `scrollView` 事件處理自動與手動行為。
   - 無第三方庫，基於 `UICollectionViewFlowLayout` 完成。
 
-## 🔧 **加分功能技術總結**
-1. **全原生實現**：所有功能均基於 UIKit，未依賴第三方套件。
-2. **用戶體驗優化**：手勢交互與動態效果結合，提升操作直觀性。
-3. **高效數據處理**：採用 ViewModel 確保數據與界面同步更新，增強項目結構的可維護性。
-
 ---
 
 ## 🛠️ **技術亮點**
@@ -95,6 +103,9 @@
 ---
 
 ## 📋 **架構圖**
+<details>
+<summary>點擊查看完整架構圖</summary>
+
 ```
 CathayInterviewApp
 ├── 📁 AppDelegate
@@ -136,11 +147,15 @@ CathayInterviewApp
 └── 📁 Extensions
       └── Extension+UIColor.swift
 ```
+</details>
+
+
 ---
 
 ## 🌳 **Git Flow 開發流程**
+在開發 **CathayInterviewApp** 的過程中，我採用了 **Git Flow** 工作流程，確保功能開發、版本控制與代碼整合的清晰性與高效性。
 
-在開發 **CathayInterviewApp** 的過程中，我採用了 **Git Flow** 工作流程，確保功能開發、版本控制與代碼整合的清晰性與高效性。以下為開發流程概述：
+以下為開發流程概述：
 
 ### 1️⃣ **分支架構**
 - **`main` 分支**：用於存放穩定版本代碼，所有已測試完成的功能均從此分支發布。
@@ -161,14 +176,15 @@ CathayInterviewApp
    - 在功能穩定後，定期將 `develop` 合併至 `main`，生成穩定版本。
 
 ### 3️⃣ **主要功能分支**
+
 | **分支名稱**             | **描述**                                                                 |
 |-------------------------|-------------------------------------------------------------------------|
-| `feature/ad-banner`     | 實現橫幅廣告的自動輪播與手動滑動功能。                                         |
-| `feature/favorite-list` | 實現 Favorite List 的長按拖動、滑動操作與分頁顯示功能。                            |
-| `feature/account-balance` | 實現金額隱藏/顯示與 GradientMaskView 的動態效果。                             |
-| `feature/notification-list` | 實現通知列表的動態紅點顯示與未讀狀態管理。                                      |
+| `feature/notification-red-dot` | 修復通知紅點的未讀狀態邏輯，避免重複顯示錯誤。                                 |
 | `feature/eye-toggle`    | 實現眼睛按鈕切換金額顯示/隱藏功能。                                             |
-| `hotfix/notification-red-dot` | 修復通知紅點的未讀狀態邏輯，避免重複顯示錯誤。                                 |
+| `feature/notification-list` | 實現通知列表的動態紅點顯示與未讀狀態管理。                                      |
+| `feature/account-balance` | 實現金額隱藏/顯示與 GradientMaskView 的動態效果。                             |
+| `feature/favorite-list` | 實現 Favorite List 的長按拖動、滑動操作與 More Button 分頁顯示功能。                            |
+| `feature/ad-banner`     | 實現橫幅廣告的自動輪播與手動滑動功能。                                         |
 
 ---
 
@@ -186,9 +202,7 @@ CathayInterviewApp
    - 選擇 **iPhone 15 Pro (iOS 17.5)** 模擬器。
    - 按下 **Cmd + R** 進行編譯與執行。
 
----
-
-## 📞 **聯繫我**
+## 📞 **請聯繫我**
 - **Email**: vickyoyaya@gmail.com
 - **LinkedIn**: [linkedin.com/in/vickyishere](https://www.linkedin.com/in/vickyishere/)
 - **GitHub**: [github.com/Vickyoyayalo](https://github.com/Vickyoyayalo)
