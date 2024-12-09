@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 
 class FavoriteListViewModel {
+    
     private var favoriteItems: [FavoriteItem] = []
     var isEmpty: Bool = true
     var onDataUpdated: (() -> Void)?
@@ -16,13 +17,19 @@ class FavoriteListViewModel {
     
     private let userDefaultsKey = "favoriteListOrder"
     
+    // MARK: - Computed Properties
+    
     var itemCount: Int {
         return favoriteItems.count
     }
     
+    // MARK: - Item Management
+    
     func item(at index: Int) -> FavoriteItem? {
         return favoriteItems.indices.contains(index) ? favoriteItems[index] : nil
     }
+    
+    // MARK: - Fetch Favorite List
     
     func fetchFavoriteList(isEmpty: Bool) {
         APIService.shared.fetchFavoriteList(isEmpty: isEmpty) { [weak self] result in
@@ -41,6 +48,8 @@ class FavoriteListViewModel {
         }
     }
     
+    // MARK: - Merge Local Order
+    
     private func mergeLocalOrder(with serverItems: inout [FavoriteItem]) {
         guard let storedOrder = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String] else { return }
         
@@ -52,9 +61,12 @@ class FavoriteListViewModel {
                 reorderedItems.append(remainingItems.remove(at: index))
             }
         }
+        
         reorderedItems.append(contentsOf: remainingItems)
         serverItems = reorderedItems
     }
+    
+    // MARK: - Move Item
     
     func moveItem(from sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex != destinationIndex,
@@ -69,10 +81,14 @@ class FavoriteListViewModel {
         onDataUpdated?()
     }
     
+    // MARK: - Save Current Order
+    
     private func saveCurrentOrder() {
         let itemKeys = favoriteItems.map { $0.hashKey }
         UserDefaults.standard.set(itemKeys, forKey: userDefaultsKey)
     }
+    
+    // MARK: - Icon For Transaction Type
     
     func icon(for transType: String) -> UIImage? {
         switch transType {

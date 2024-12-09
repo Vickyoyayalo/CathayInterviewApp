@@ -8,14 +8,18 @@
 import UIKit
 
 class AdBannerViewModel {
+
     var banners: [UIImage] = []
     private var timer: Timer?
     private var currentIndex = 0
     var isFirstLoad: Bool = true
     
+    // MARK: - Callbacks
+    
     var onDataUpdated: (() -> Void)?
     var onAutoScroll: ((Int) -> Void)?
     
+    // MARK: - Load Banners with Placeholder
     
     func loadBannersWithPlaceholder() {
         isFirstLoad = true
@@ -23,8 +27,10 @@ class AdBannerViewModel {
         onDataUpdated?()
     }
     
+    // MARK: - Load Banners
+    
     func loadBanners() {
-        self.banners = [
+        banners = [
             UIImage(named: "banner1")!,
             UIImage(named: "banner2")!,
             UIImage(named: "banner3")!,
@@ -34,6 +40,7 @@ class AdBannerViewModel {
         onDataUpdated?()
     }
     
+    // MARK: - Start Auto Scroll
     
     func startAutoScroll() {
         stopAutoScroll()
@@ -50,10 +57,14 @@ class AdBannerViewModel {
         }
     }
     
+    // MARK: - Stop Auto Scroll
+    
     func stopAutoScroll() {
         timer?.invalidate()
         timer = nil
     }
+    
+    // MARK: - Update Current Page
     
     func updateCurrentPage(_ index: Int) {
         currentIndex = index

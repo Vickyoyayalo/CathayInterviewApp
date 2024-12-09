@@ -7,8 +7,6 @@
 
 import Foundation
 
-// MARK: - ViewModel for Account Balance
-
 class AccountBalanceViewModel {
 
     private(set) var usdBalance: String = "********"
