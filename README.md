@@ -125,6 +125,6 @@ CathayInterviewApp
 ## 📞 **聯繫我**
 - **Email**: vickyoyaya@gmail.com
 - **LinkedIn**: [linkedin.com/in/vickyishere](https://www.linkedin.com/in/vickyishere/)
-- **GitHub**: [github.com/Vickyoyayalo]((https://github.com/Vickyoyayalo))
+- **GitHub**: [github.com/Vickyoyayalo](https://github.com/Vickyoyayalo)
 
 
