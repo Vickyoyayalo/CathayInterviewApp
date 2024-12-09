@@ -8,8 +8,11 @@
 import UIKit
 
 class GradientMaskView: UIView {
+    
     private var gradientLayer: CAGradientLayer?
-
+    
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupGradient()
@@ -20,6 +23,8 @@ class GradientMaskView: UIView {
         setupGradient()
     }
 
+    // MARK: - Setup Gradient Layer
+    
     private func setupGradient() {
         if gradientLayer == nil {
             let gradient = CAGradientLayer()
@@ -38,11 +43,15 @@ class GradientMaskView: UIView {
         }
     }
 
+    // MARK: - Layout Subviews
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer?.frame = bounds
     }
 
+    // MARK: - Start Shimmer Animation
+    
     func startShimmer() {
         guard gradientLayer?.animation(forKey: "shimmer") == nil else { return }
         
@@ -55,6 +64,8 @@ class GradientMaskView: UIView {
         gradientLayer?.add(animation, forKey: "shimmer")
     }
 
+    // MARK: - Stop Shimmer Animation
+    
     func stopShimmer() {
         gradientLayer?.removeAnimation(forKey: "shimmer")
     }

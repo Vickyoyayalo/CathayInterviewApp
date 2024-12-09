@@ -8,9 +8,11 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     private var tabBarBackgroundView: UIView!
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabs()
@@ -18,6 +20,14 @@ class MainTabBarController: UITabBarController {
         setupTabBarBackground()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustTabBarFrame()
+        adjustTabBarBackgroundViewFrame()
+    }
+
+    // MARK: - Setup Tabs
+    
     private func setupTabs() {
       
         let mainVC = MainViewController()
@@ -27,7 +37,6 @@ class MainTabBarController: UITabBarController {
             title: "Home",
             image: UIImage(named: "TabbarHomeActive"),
             selectedImage: UIImage(named: "TabbarHomeActive")?.withRenderingMode(.alwaysOriginal)
-            
         )
 
         let accountVC = UIViewController()
@@ -56,14 +65,16 @@ class MainTabBarController: UITabBarController {
             image: UIImage(systemName: "person.2.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor(named: "gray7")!),
             selectedImage: UIImage(systemName: "person.2.fill")
         )
+        
         self.viewControllers = [mainNavController, accountNavController, locationNavController, serviceNavController]
     }
+    
+    // MARK: - Setup TabBar Appearance
     
     private func setupTabBarAppearance() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .clear
-        
         tabBarAppearance.shadowColor = .clear
 
         let normalAttributes: [NSAttributedString.Key: Any] = [
@@ -100,15 +111,16 @@ class MainTabBarController: UITabBarController {
         if let bgImage = roundedImage {
             tabBarAppearance.backgroundImage = bgImage
         }
+        
         tabBarAppearance.backgroundEffect = nil
-
         tabBar.standardAppearance = tabBarAppearance
         
         if #available(iOS 15.0, *) {
             tabBar.scrollEdgeAppearance = tabBarAppearance
         }
-
     }
+    
+    // MARK: - Setup TabBar Background
     
     private func setupTabBarBackground() {
         tabBarBackgroundView = UIView()
@@ -130,10 +142,10 @@ class MainTabBarController: UITabBarController {
             tabBarBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
+    
+    // MARK: - Frame Adjustment Methods
+    
+    private func adjustTabBarFrame() {
         let tabBarHeight: CGFloat = 60
         let tabBarHorizontalPadding: CGFloat = 80
         let tabBarWidth = view.frame.width - tabBarHorizontalPadding
@@ -144,7 +156,9 @@ class MainTabBarController: UITabBarController {
         tabFrame.origin.y = view.frame.height - tabBarHeight - 20
         tabFrame.origin.x = (view.frame.width - tabBarWidth) / 2
         tabBar.frame = tabFrame
+    }
 
+    private func adjustTabBarBackgroundViewFrame() {
         let backgroundHeight: CGFloat = 60
         let backgroundHorizontalPadding: CGFloat = 48
         let backgroundWidth = view.frame.width - backgroundHorizontalPadding
@@ -155,5 +169,12 @@ class MainTabBarController: UITabBarController {
             width: backgroundWidth,
             height: backgroundHeight
         )
+    }
+
+    // MARK: - Action Methods
+    
+    private func handleTabBarItemTap(index: Int) {
+        guard index < (viewControllers?.count ?? 0) else { return }
+        selectedIndex = index
     }
 }
