@@ -24,7 +24,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     private let adBannerViewModel = AdBannerViewModel()
     
     // MARK: - State Flags
-
+    
     private var hasScrolled = false
     private var didPullRefresh = false
     
@@ -218,7 +218,16 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc private func handleRefresh() {
-        didPullRefresh = true
+        
+        if let notificationButton = self.navigationItem.rightBarButtonItem?.customView?.subviews.first(where: { $0 is UIButton }) as? UIButton {
+            notificationButton.isEnabled = true
+        }
+        
+        if !didPullRefresh {
+            didPullRefresh = true
+            accountBalanceView.eyeButton.isEnabled = true
+        }
+        
         if accountBalanceViewModel.isFirstOpen && accountBalanceViewModel.isBalanceHidden {
             accountBalanceViewModel.isFirstOpen = false
             accountBalanceViewModel.updateUI?()
@@ -231,9 +240,6 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         adBannerView.startAutoScroll()
         viewModel.fetchNotifications()
         refreshControl.endRefreshing()
-        if let notificationButton = self.navigationItem.rightBarButtonItem?.customView?.subviews.first(where: { $0 is UIButton }) as? UIButton {
-            notificationButton.isEnabled = true
-        }
     }
     
     // MARK: - UIScrollViewDelegate
