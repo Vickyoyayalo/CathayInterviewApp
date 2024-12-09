@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController, UIScrollViewDelegate {
-    // MARK: - UI Components
+    
     private let scrollView = UIScrollView()
     private let refreshControl = UIRefreshControl()
     
@@ -18,15 +18,18 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     private let adBannerView = AdBannerView()
     
     // MARK: - ViewModels
+    
     private let viewModel = MainViewModel()
     private let favoriteListViewModel = FavoriteListViewModel()
     private let adBannerViewModel = AdBannerViewModel()
     
     // MARK: - State Flags
+
     private var hasScrolled = false
     private var didPullRefresh = false
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -50,6 +53,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK: - Setup Methods
+    
     private func setupNavigationBar() {
         // Avatar
         let avatarContainer = UIView()
@@ -207,6 +211,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK: - Actions
+    
     @objc private func notificationButtonTapped() {
         let notificationListVC = NotificationListViewController()
         navigationController?.pushViewController(notificationListVC, animated: true)
@@ -232,6 +237,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK: - UIScrollViewDelegate
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !hasScrolled {
             hasScrolled = true
