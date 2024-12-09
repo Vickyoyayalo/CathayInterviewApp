@@ -23,7 +23,7 @@ class AccountBalanceView: UIView {
     var onRefreshComplete: (() -> Void)?
     
     private let titleLabel = UILabel()
-    private let eyeButton = UIButton(type: .system)
+    internal let eyeButton = UIButton(type: .system)
     let usdLabel = UILabel()
     let khrLabel = UILabel()
     
@@ -43,7 +43,7 @@ class AccountBalanceView: UIView {
         super.init(coder: coder)
         setupUI()
     }
-
+    
     // MARK: - Setup UI
     
     private func setupUI() {
@@ -55,6 +55,7 @@ class AccountBalanceView: UIView {
         
         eyeButton.setImage(UIImage(named: Icon.hidden), for: .normal)
         eyeButton.addTarget(self, action: #selector(toggleVisibility), for: .touchUpInside)
+        eyeButton.isEnabled = false
         
         let titleStack = UIStackView(arrangedSubviews: [titleLabel, eyeButton])
         titleStack.axis = .horizontal
@@ -120,7 +121,7 @@ class AccountBalanceView: UIView {
         
         usdLabel.addSubview(usdMaskView)
         khrLabel.addSubview(khrMaskView)
-
+        
         usdMaskView.translatesAutoresizingMaskIntoConstraints = false
         khrMaskView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -137,7 +138,7 @@ class AccountBalanceView: UIView {
             khrMaskView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -4)
         ])
     }
-
+    
     // MARK: - Setup Bindings
     
     private func setupBindings() {
@@ -179,7 +180,7 @@ class AccountBalanceView: UIView {
             stopShimmer()
         }
     }
-
+    
     // MARK: - Actions
     
     @objc private func toggleVisibility() {
@@ -195,7 +196,7 @@ class AccountBalanceView: UIView {
             self.khrMaskView.startShimmer()
         }
     }
-
+    
     private func stopShimmer() {
         usdMaskView.stopShimmer()
         khrMaskView.stopShimmer()
