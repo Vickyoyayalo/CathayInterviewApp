@@ -132,6 +132,39 @@ CathayInterviewApp
       └── Extension+UIColor.swift
 ```
 
+## 🌳 **Git Flow 開發流程**
+
+在開發 **CathayInterviewApp** 的過程中，我採用了 **Git Flow** 工作流程，確保功能開發、版本控制與代碼整合的清晰性與高效性。以下為開發流程概述：
+
+### 1️⃣ **分支架構**
+- **`main` 分支**：用於存放穩定版本代碼，所有已測試完成的功能均從此分支發布。
+- **`develop` 分支**：作為功能整合的基礎分支，所有功能分支均基於此分支進行開發與合併。
+
+
+### 2️⃣ **功能開發流程**
+1. **功能分支**：
+   - 每項功能均在 **`feature/[功能名稱]`** 分支上開發。
+   - 功能完成後提交 Pull Request，通過審查後合併回 `develop` 分支。
+
+2. **分支命名規範**：
+   - **功能開發分支**：`feature/[功能名稱]`（例：`feature/ad-banner`）
+   - **Refactor分支**：`refactor/[修復名稱]`（例：`refactor/notification-red-dot`）
+
+3. **分支整合**：
+   - 功能開發完成後，合併至 `develop` 進行功能整合。
+   - 在功能穩定後，定期將 `develop` 合併至 `main`，生成穩定版本。
+
+### 3️⃣ **主要功能分支**
+| **分支名稱**             | **描述**                                                                 |
+|-------------------------|-------------------------------------------------------------------------|
+| `feature/ad-banner`     | 實現橫幅廣告的自動輪播與手動滑動功能。                                         |
+| `feature/favorite-list` | 實現 Favorite List 的長按拖動、滑動操作與分頁顯示功能。                            |
+| `feature/account-balance` | 實現金額隱藏/顯示與 GradientMaskView 的動態效果。                             |
+| `feature/notification-list` | 實現通知列表的動態紅點顯示與未讀狀態管理。                                      |
+| `feature/eye-toggle`    | 實現眼睛按鈕切換金額顯示/隱藏功能。                                             |
+| `hotfix/notification-red-dot` | 修復通知紅點的未讀狀態邏輯，避免重複顯示錯誤。                                 |
+
+
 ## 🔍 **安裝與測試**
 1. **Clone 專案**
    ```bash
