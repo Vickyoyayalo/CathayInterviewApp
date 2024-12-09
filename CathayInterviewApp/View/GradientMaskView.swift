@@ -21,19 +21,21 @@ class GradientMaskView: UIView {
     }
 
     private func setupGradient() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            UIColor.lightGray.withAlphaComponent(0.3).cgColor,
-            UIColor.lightGray.withAlphaComponent(0.1).cgColor,
-            UIColor.lightGray.withAlphaComponent(0.3).cgColor
-        ]
-        
-        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1, y: 0.5)
-        gradient.locations = [0, 0.5, 1]
-        
-        layer.addSublayer(gradient)
-        self.gradientLayer = gradient
+        if gradientLayer == nil {
+            let gradient = CAGradientLayer()
+            gradient.colors = [
+                UIColor.lightGray.withAlphaComponent(0.3).cgColor,
+                UIColor.lightGray.withAlphaComponent(0.1).cgColor,
+                UIColor.lightGray.withAlphaComponent(0.3).cgColor
+            ]
+            
+            gradient.startPoint = CGPoint(x: 0, y: 0.5)
+            gradient.endPoint = CGPoint(x: 1, y: 0.5)
+            gradient.locations = [0, 0.5, 1]
+            
+            layer.addSublayer(gradient)
+            self.gradientLayer = gradient
+        }
     }
 
     override func layoutSubviews() {
@@ -49,6 +51,7 @@ class GradientMaskView: UIView {
         animation.toValue = [1.0, 1.5, 2.0]
         animation.duration = 1.5
         animation.repeatCount = Float.infinity
+        animation.isRemovedOnCompletion = false
         gradientLayer?.add(animation, forKey: "shimmer")
     }
 

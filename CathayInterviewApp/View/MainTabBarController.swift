@@ -19,80 +19,104 @@ class MainTabBarController: UITabBarController {
     }
 
     private func setupTabs() {
-        // Tab 1: Home
+      
         let mainVC = MainViewController()
+        mainVC.view.backgroundColor = .white
         let mainNavController = UINavigationController(rootViewController: mainVC)
         mainNavController.tabBarItem = UITabBarItem(
             title: "Home",
             image: UIImage(named: "TabbarHomeActive"),
-            selectedImage: UIImage(named: "TabbarHomeActive")
+            selectedImage: UIImage(named: "TabbarHomeActive")?.withRenderingMode(.alwaysOriginal)
+            
         )
 
-        // Tab 2: Account
         let accountVC = UIViewController()
+        accountVC.view.backgroundColor = .white
         let accountNavController = UINavigationController(rootViewController: accountVC)
         accountNavController.tabBarItem = UITabBarItem(
             title: "Account",
-            image: UIImage(named: "TabbarAccount"),
+            image: UIImage(named: "TabbarAccount")?.withRenderingMode(.alwaysOriginal),
             selectedImage: UIImage(named: "TabbarAccount")
         )
 
-        // Tab 3: Location
         let locationVC = UIViewController()
+        locationVC.view.backgroundColor = .white
         let locationNavController = UINavigationController(rootViewController: locationVC)
         locationNavController.tabBarItem = UITabBarItem(
             title: "Location",
-            image: UIImage(named: "TabbarLocation"),
+            image: UIImage(named: "TabbarLocation")?.withRenderingMode(.alwaysOriginal),
             selectedImage: UIImage(named: "TabbarLocation")
         )
 
-        // Tab 4: Service
         let serviceVC = UIViewController()
+        serviceVC.view.backgroundColor = .white
         let serviceNavController = UINavigationController(rootViewController: serviceVC)
         serviceNavController.tabBarItem = UITabBarItem(
             title: "Service",
-            image: UIImage(systemName: "person.2.fill"),
+            image: UIImage(systemName: "person.2.fill")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor(named: "gray7")!),
             selectedImage: UIImage(systemName: "person.2.fill")
         )
-
-        // Add tabs
         self.viewControllers = [mainNavController, accountNavController, locationNavController, serviceNavController]
     }
-
+    
     private func setupTabBarAppearance() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .clear
         
-        tabBarAppearance.shadowImage = nil
         tabBarAppearance.shadowColor = .clear
-        
-        // 設定文字位置偏移
-        for item in tabBar.items ?? [] {
-            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2) // 調整文字的位置
-            item.imageInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5) // 調整圖標的位置
-        }
-        
 
-        tabBar.tintColor = UIColor.orange01
-        tabBar.unselectedItemTintColor = UIColor.gray
-
-        let textAttributes: [NSAttributedString.Key: Any] = [
-            .font: Font.FavoriteName ?? UIFont.systemFont(ofSize: 12)
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: Font.tabbarItem ?? UIFont.systemFont(ofSize: 12, weight: .bold),
+            .foregroundColor: UIColor.labelColor ?? UIColor.systemGray6
         ]
-        UITabBarItem.appearance().setTitleTextAttributes(textAttributes, for: .normal)
+        let selectedAttributes: [NSAttributedString.Key: Any] = [
+            .font: Font.tabbarItem ?? UIFont.systemFont(ofSize: 12, weight: .bold),
+            .foregroundColor: UIColor.orange01
+        ]
+
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = normalAttributes
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = selectedAttributes
+
+        tabBarAppearance.stackedLayoutAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 3)
+        tabBarAppearance.stackedLayoutAppearance.selected.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 3)
+    
+        tabBar.tintColor = .orange01
+        tabBar.unselectedItemTintColor = .labelColor
+
+        let radius: CGFloat = 30
+        let size = CGSize(width: UIScreen.main.bounds.width - 40, height: 70)
+
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(UIColor.white.cgColor)
+        let rect = CGRect(origin: .zero, size: size)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: radius)
+        path.addClip()
+        context.fill(rect)
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        if let bgImage = roundedImage {
+            tabBarAppearance.backgroundImage = bgImage
+        }
+        tabBarAppearance.backgroundEffect = nil
 
         tabBar.standardAppearance = tabBarAppearance
-        tabBar.scrollEdgeAppearance = tabBarAppearance
-    }
+        
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = tabBarAppearance
+        }
 
+    }
+    
     private func setupTabBarBackground() {
         tabBarBackgroundView = UIView()
         tabBarBackgroundView.backgroundColor = .white
         tabBarBackgroundView.layer.cornerRadius = 30
         tabBarBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        tabBarBackgroundView.layer.shadowOpacity = 0.1
-        tabBarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tabBarBackgroundView.layer.shadowOpacity = 0.2
+        tabBarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 5)
         tabBarBackgroundView.layer.shadowRadius = 6
         tabBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -110,121 +134,26 @@ class MainTabBarController: UITabBarController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let height: CGFloat = 70
-        let width: CGFloat = view.frame.width - 40
+        let tabBarHeight: CGFloat = 60
+        let tabBarHorizontalPadding: CGFloat = 80
+        let tabBarWidth = view.frame.width - tabBarHorizontalPadding
+
         var tabFrame = tabBar.frame
-        tabFrame.size.height = height
-        tabFrame.size.width = width
-        tabFrame.origin.y = view.frame.height - height - 20
-        tabFrame.origin.x = (view.frame.width - width) / 2
+        tabFrame.size.height = tabBarHeight
+        tabFrame.size.width = tabBarWidth
+        tabFrame.origin.y = view.frame.height - tabBarHeight - 20
+        tabFrame.origin.x = (view.frame.width - tabBarWidth) / 2
         tabBar.frame = tabFrame
 
-        // Update tabBarBackgroundView's frame
-        tabBarBackgroundView.frame = tabBar.frame
+        let backgroundHeight: CGFloat = 60
+        let backgroundHorizontalPadding: CGFloat = 48
+        let backgroundWidth = view.frame.width - backgroundHorizontalPadding
+
+        tabBarBackgroundView.frame = CGRect(
+            x: (view.frame.width - backgroundWidth) / 2,
+            y: view.frame.height - backgroundHeight - 20,
+            width: backgroundWidth,
+            height: backgroundHeight
+        )
     }
 }
-
-
-//import UIKit
-//
-//class MainTabBarController: UITabBarController {
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        setupTabs()
-//        setupTabBarAppearance()
-//        
-//        for item in tabBar.items ?? [] {
-//            item.imageInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5) // 調整圖標偏移
-//            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -2)   // 調整文字偏移
-//        }
-//
-//    }
-//
-//    private func setupTabs() {
-//        // Tab 1: Home
-//        let mainVC = MainViewController()
-//        let mainNavController = UINavigationController(rootViewController: mainVC)
-//        mainNavController.tabBarItem = UITabBarItem(
-//            title: "Home",
-//            image: UIImage(named: "TabbarHomeActive"),
-//            selectedImage: UIImage(named: "TabbarHomeActive")
-//        )
-//
-//        // Tab 2: Account
-//        let accountVC = UIViewController()
-//        let accountNavController = UINavigationController(rootViewController: accountVC)
-//        accountNavController.tabBarItem = UITabBarItem(
-//            title: "Account",
-//            image: UIImage(named: "TabbarAccount"),
-//            selectedImage: UIImage(named: "TabbarAccount")
-//        )
-//
-//        // Tab 3: Location
-//        let locationVC = UIViewController()
-//        let locationNavController = UINavigationController(rootViewController: locationVC)
-//        locationNavController.tabBarItem = UITabBarItem(
-//            title: "Location",
-//            image: UIImage(named: "TabbarLocation"),
-//            selectedImage: UIImage(named: "TabbarLocation")
-//        )
-//
-//        // Tab 4: Service
-//        let serviceVC = UIViewController()
-//        let serviceNavController = UINavigationController(rootViewController: serviceVC)
-//        serviceNavController.tabBarItem = UITabBarItem(
-//            title: "Service",
-//            image: UIImage(systemName: "person.2.fill"),
-//            selectedImage: UIImage(systemName: "person.2.fill")
-//        )
-//
-//        // Add tabs to TabBarController
-//        self.viewControllers = [mainNavController, accountNavController, locationNavController, serviceNavController]
-//    }
-//
-//    private func setupTabBarAppearance() {
-//        let tabBarAppearance = UITabBarAppearance()
-//        tabBarAppearance.configureWithOpaqueBackground()
-//        tabBarAppearance.backgroundColor = .white
-//
-//        // 設置圓角
-//        tabBar.layer.cornerRadius = 20
-//        tabBar.layer.masksToBounds = true
-//        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        
-//        // 設置陰影
-//        tabBar.layer.shadowColor = UIColor.black.cgColor
-//        tabBar.layer.shadowOpacity = 0.1
-//        tabBar.layer.shadowOffset = CGSize(width: 0, height: -2)
-//        tabBar.layer.shadowRadius = 6
-//
-//        // 設置選中與未選中顏色
-//        tabBar.tintColor = UIColor.orange01 // 選中顏色
-//        tabBar.unselectedItemTintColor = UIColor.gray // 未選中顏色
-//
-//        // 設置文字字體
-//        let attributes = [NSAttributedString.Key.font: Font.FavoriteName ?? UIFont.systemFont(ofSize: 12)]
-//        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: .normal)
-//
-//        tabBar.standardAppearance = tabBarAppearance
-//        tabBar.scrollEdgeAppearance = tabBarAppearance
-//    }
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        let height: CGFloat = 60 // 自定義 TabBar 高度
-//        let width: CGFloat = view.frame.width - 40 // 減少 TabBar 寬度
-//        var tabFrame = tabBar.frame
-//        tabFrame.size.height = height
-//        tabFrame.size.width = width
-//        tabFrame.origin.y = view.frame.height - height - 20 // 懸浮效果，距離底部 20
-//        tabFrame.origin.x = (view.frame.width - width) / 2 // 水平居中
-//        tabBar.frame = tabFrame
-//
-//        // 確保圓角和陰影顯示
-//        tabBar.layer.cornerRadius = 20
-//        tabBar.layer.masksToBounds = false
-//        tabBar.clipsToBounds = false
-//    }
-//}

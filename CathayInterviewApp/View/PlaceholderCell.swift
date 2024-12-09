@@ -12,7 +12,7 @@ class PlaceholderCell: UICollectionViewCell {
     private let label: UILabel = {
         let lbl = UILabel()
         lbl.text = "AD"
-        lbl.font = Font.EmptyValue
+        lbl.font = Font.emptyValue
         lbl.textAlignment = .center
         lbl.textColor = .white
         return lbl

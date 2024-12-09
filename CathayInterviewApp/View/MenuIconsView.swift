@@ -62,7 +62,7 @@ class MenuIconsView: UIView {
 
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = Font.EmptyValue ?? UIFont.systemFont(ofSize: 14)
+            outgoing.font = Font.emptyValue ?? UIFont.systemFont(ofSize: 14)
             return outgoing
         }
         

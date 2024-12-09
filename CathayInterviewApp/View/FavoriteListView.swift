@@ -64,7 +64,7 @@ class FavoriteListView: UIView {
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
         
         emptyLabel.text = "You can add a favorite through the transfer or payment function."
-        emptyLabel.font = Font.EmptyValue
+        emptyLabel.font = Font.emptyValue
         emptyLabel.textColor = .sublabelColor
         emptyLabel.numberOfLines = 0
         emptyLabel.translatesAutoresizingMaskIntoConstraints = false

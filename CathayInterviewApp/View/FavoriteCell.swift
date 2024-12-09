@@ -15,7 +15,7 @@ class FavoriteCell: UICollectionViewCell {
         super.init(frame: frame)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Font.FavoriteName
+        label.font = Font.favoriteName
         label.textColor = .sublabelColor
         label.textAlignment = .center
         label.numberOfLines = 2

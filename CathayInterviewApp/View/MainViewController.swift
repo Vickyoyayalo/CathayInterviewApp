@@ -126,7 +126,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         container.addSubview(avatarImageView)
         
         NSLayoutConstraint.activate([
-            avatarImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            avatarImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
             avatarImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             avatarImageView.widthAnchor.constraint(equalToConstant: 42),
             avatarImageView.heightAnchor.constraint(equalToConstant: 42)
@@ -149,7 +149,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         notificationContainer.addSubview(notificationButton)
         
         NSLayoutConstraint.activate([
-            notificationButton.trailingAnchor.constraint(equalTo: notificationContainer.trailingAnchor, constant: -10),
+            notificationButton.trailingAnchor.constraint(equalTo: notificationContainer.trailingAnchor, constant: -8),
             notificationButton.centerYAnchor.constraint(equalTo: notificationContainer.centerYAnchor),
             notificationButton.widthAnchor.constraint(equalToConstant: 25),
             notificationButton.heightAnchor.constraint(equalToConstant: 26)

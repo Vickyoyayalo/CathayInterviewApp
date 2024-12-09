@@ -40,7 +40,7 @@ class AccountBalanceView: UIView {
         super.init(coder: coder)
         setupUI()
     }
-    
+
     private func setupUI() {
         
         titleLabel.text = "My Account Balance"
