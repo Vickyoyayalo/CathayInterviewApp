@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CB225AC2D05A34B00F6E2BF /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AB2D05A34B00F6E2BF /* BannerCell.swift */; };
+		1CB225AE2D05A36200F6E2BF /* PlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */; };
+		1CB225B02D05E23200F6E2BF /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */; };
 		1CB6989C2CFFF235009332BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989B2CFFF235009332BF /* AppDelegate.swift */; };
 		1CB6989E2CFFF235009332BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989D2CFFF235009332BF /* SceneDelegate.swift */; };
 		1CB698A02CFFF235009332BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB6989F2CFFF235009332BF /* ViewController.swift */; };
@@ -31,6 +34,8 @@
 		1CB698DF2D01B038009332BF /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */; };
 		1CB698E12D02F1D0009332BF /* GradientMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698E02D02F1D0009332BF /* GradientMaskView.swift */; };
 		1CB698E32D0331DF009332BF /* MenuIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB698E22D0331DF009332BF /* MenuIconsView.swift */; };
+		1CD77A4D2D052467001716EE /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD77A4C2D052467001716EE /* AdBannerView.swift */; };
+		1CD77A4F2D052484001716EE /* AdBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD77A4E2D052484001716EE /* AdBannerViewModel.swift */; };
 		1CDDF02C2D03CDF60012C1CA /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF02B2D03CDF60012C1CA /* Favorite.swift */; };
 		1CDDF02E2D03CE3C0012C1CA /* FavoriteListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */; };
 		1CDDF0322D03CE990012C1CA /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDDF0312D03CE990012C1CA /* FavoriteCell.swift */; };
@@ -38,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1CB225AB2D05A34B00F6E2BF /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
+		1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderCell.swift; sourceTree = "<group>"; };
+		1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1CB698982CFFF235009332BF /* CathayInterviewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CathayInterviewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB6989B2CFFF235009332BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CB6989D2CFFF235009332BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +72,8 @@
 		1CB698DE2D01B038009332BF /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		1CB698E02D02F1D0009332BF /* GradientMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMaskView.swift; sourceTree = "<group>"; };
 		1CB698E22D0331DF009332BF /* MenuIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuIconsView.swift; sourceTree = "<group>"; };
+		1CD77A4C2D052467001716EE /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
+		1CD77A4E2D052484001716EE /* AdBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerViewModel.swift; sourceTree = "<group>"; };
 		1CDDF02B2D03CDF60012C1CA /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewModel.swift; sourceTree = "<group>"; };
 		1CDDF0312D03CE990012C1CA /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
@@ -132,6 +142,7 @@
 				1CB698BE2D0026B7009332BF /* MainViewModel.swift */,
 				1CDDF02D2D03CE3C0012C1CA /* FavoriteListViewModel.swift */,
 				1CB698D02D005105009332BF /* NotificationListViewModel.swift */,
+				1CD77A4E2D052484001716EE /* AdBannerViewModel.swift */,
 				1CB698D72D013BAB009332BF /* AccountBalanceViewModel.swift */,
 			);
 			path = ViewModel;
@@ -141,7 +152,11 @@
 			isa = PBXGroup;
 			children = (
 				1CB698C72D002CB4009332BF /* MainViewController.swift */,
+				1CB225AF2D05E23200F6E2BF /* MainTabBarController.swift */,
 				1CDDF0332D03CF050012C1CA /* FavoriteListView.swift */,
+				1CD77A4C2D052467001716EE /* AdBannerView.swift */,
+				1CB225AD2D05A36200F6E2BF /* PlaceholderCell.swift */,
+				1CB225AB2D05A34B00F6E2BF /* BannerCell.swift */,
 				1CB698E22D0331DF009332BF /* MenuIconsView.swift */,
 				1CB698E02D02F1D0009332BF /* GradientMaskView.swift */,
 				1CB698CC2D004FAA009332BF /* NotificationListViewController.swift */,
@@ -273,10 +288,14 @@
 				1CB698CD2D004FAA009332BF /* NotificationListViewController.swift in Sources */,
 				1CB698A02CFFF235009332BF /* ViewController.swift in Sources */,
 				1CB698BD2D002679009332BF /* APIService.swift in Sources */,
+				1CB225AC2D05A34B00F6E2BF /* BannerCell.swift in Sources */,
+				1CD77A4D2D052467001716EE /* AdBannerView.swift in Sources */,
+				1CB225AE2D05A36200F6E2BF /* PlaceholderCell.swift in Sources */,
 				1CB698B92D0025F3009332BF /* Notification.swift in Sources */,
 				1CB698E12D02F1D0009332BF /* GradientMaskView.swift in Sources */,
 				1CB698D42D008D16009332BF /* NotificationManager.swift in Sources */,
 				1CB698CF2D0050E9009332BF /* NotificationCell.swift in Sources */,
+				1CB225B02D05E23200F6E2BF /* MainTabBarController.swift in Sources */,
 				1CB698CB2D004283009332BF /* ExtensionUIColor.swift in Sources */,
 				1CDDF0342D03CF050012C1CA /* FavoriteListView.swift in Sources */,
 				1CB698D82D013BAB009332BF /* AccountBalanceViewModel.swift in Sources */,
@@ -286,6 +305,7 @@
 				1CB698A62CFFF235009332BF /* CathayInterviewApp.xcdatamodeld in Sources */,
 				1CB698C82D002CB4009332BF /* MainViewController.swift in Sources */,
 				1CB698DA2D01A90E009332BF /* Font.swift in Sources */,
+				1CD77A4F2D052484001716EE /* AdBannerViewModel.swift in Sources */,
 				1CB698D12D005105009332BF /* NotificationListViewModel.swift in Sources */,
 				1CB698D62D01355B009332BF /* AccountBalanceView.swift in Sources */,
 				1CDDF02C2D03CDF60012C1CA /* Favorite.swift in Sources */,

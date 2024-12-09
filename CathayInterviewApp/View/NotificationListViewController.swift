@@ -23,6 +23,9 @@ class NotificationListViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.fetchNotifications()
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
         let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"),
                                          style: .plain,
                                          target: self,
@@ -84,3 +87,10 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+extension NotificationListViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
+}
+

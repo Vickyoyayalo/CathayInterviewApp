@@ -14,12 +14,7 @@ class AccountBalanceView: UIView {
     var viewModel: AccountBalanceViewModel? {
         didSet {
             setupBindings()
-           
-            usdLabel.text = viewModel?.usdBalance
-            khrLabel.text = viewModel?.khrBalance
-          
-            usdMaskView.isHidden = !(viewModel?.isBalanceHidden ?? true)
-            khrMaskView.isHidden = !(viewModel?.isBalanceHidden ?? true)
+            refreshUI()
         }
     }
     
@@ -45,7 +40,7 @@ class AccountBalanceView: UIView {
         super.init(coder: coder)
         setupUI()
     }
-    
+
     private func setupUI() {
         
         titleLabel.text = "My Account Balance"
@@ -85,7 +80,6 @@ class AccountBalanceView: UIView {
         khrLabel.lineBreakMode = .byClipping
         khrLabel.adjustsFontSizeToFitWidth = true
         khrLabel.minimumScaleFactor = 0.8
-
         
         let khrStack = UIStackView(arrangedSubviews: [khrTitleLabel, khrLabel])
         khrStack.axis = .vertical
@@ -105,7 +99,7 @@ class AccountBalanceView: UIView {
         
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: topAnchor),
-            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
@@ -119,58 +113,74 @@ class AccountBalanceView: UIView {
 
         usdMaskView.translatesAutoresizingMaskIntoConstraints = false
         khrMaskView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
         
+        NSLayoutConstraint.activate([
             usdMaskView.topAnchor.constraint(equalTo: usdLabel.topAnchor),
             usdMaskView.leadingAnchor.constraint(equalTo: usdLabel.leadingAnchor),
-            usdMaskView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            usdMaskView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             usdMaskView.heightAnchor.constraint(equalToConstant: 40),
             
             khrMaskView.topAnchor.constraint(equalTo: khrLabel.topAnchor),
             khrMaskView.leadingAnchor.constraint(equalTo: khrLabel.leadingAnchor),
-            khrMaskView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            khrMaskView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             khrMaskView.heightAnchor.constraint(equalToConstant: 40),
             khrMaskView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -4)
         ])
-
     }
 
     private func setupBindings() {
-            guard let viewModel = viewModel else { return }
-            
-            viewModel.updateUI = { [weak self] in
-                DispatchQueue.main.async {
-                    guard let self = self, let viewModel = self.viewModel else { return }
-                    self.usdLabel.text = viewModel.usdBalance
-                    self.khrLabel.text = viewModel.khrBalance
-                    
-                   
-                    if viewModel.isBalanceHidden {
-                        
-                        if viewModel.isFirstOpen {
-                            self.usdMaskView.isHidden = false
-                            self.khrMaskView.isHidden = false
-                            self.eyeButton.setImage(UIImage(named: Icon.hidden), for: .normal)
-                        } else {
-                            self.usdMaskView.isHidden = true
-                            self.khrMaskView.isHidden = true
-                            self.eyeButton.setImage(UIImage(named: Icon.hidden), for: .normal)
-                        }
-                    } else {
-                        self.usdMaskView.isHidden = true
-                        self.khrMaskView.isHidden = true
-                        self.eyeButton.setImage(UIImage(named: Icon.visible), for: .normal)
-                    }
-                    
-                    self.onRefreshComplete?()
-                }
+        guard let viewModel = viewModel else { return }
+        viewModel.updateUI = { [weak self] in
+            DispatchQueue.main.async {
+                self?.refreshUI()
+                self?.onRefreshComplete?()
             }
         }
+    }
     
-    
+    private func refreshUI() {
+        guard let viewModel = viewModel else { return }
+        
+        usdLabel.text = viewModel.usdBalance
+        khrLabel.text = viewModel.khrBalance
+        
+        if viewModel.isBalanceHidden {
+            if viewModel.isFirstOpen {
+                usdMaskView.isHidden = false
+                khrMaskView.isHidden = false
+                eyeButton.setImage(UIImage(named: Icon.hidden), for: .normal)
+                startShimmer()
+            } else {
+                usdLabel.text = "********"
+                khrLabel.text = "********"
+                usdMaskView.isHidden = true
+                khrMaskView.isHidden = true
+                eyeButton.setImage(UIImage(named: Icon.hidden), for: .normal)
+                stopShimmer()
+            }
+        } else {
+            usdMaskView.isHidden = true
+            khrMaskView.isHidden = true
+            eyeButton.setImage(UIImage(named: Icon.visible), for: .normal)
+            stopShimmer()
+        }
+    }
+
     @objc private func toggleVisibility() {
         viewModel?.toggleBalanceVisibility()
         onToggleVisibility?()
     }
+    
+    private func startShimmer() {
+        usdMaskView.startShimmer()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.khrMaskView.startShimmer()
+        }
+    }
+
+    private func stopShimmer() {
+        usdMaskView.stopShimmer()
+        khrMaskView.stopShimmer()
+    }
 }
+

@@ -20,4 +20,8 @@ struct ResultData: Codable {
 struct FavoriteItem: Codable {
     let nickname: String
     let transType: String
+    
+    var hashKey: String {
+        return "\(nickname)-\(transType)"
+    }
 }

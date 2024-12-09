@@ -60,11 +60,11 @@ class FavoriteListView: UIView {
         moreButton.addTarget(self, action: #selector(handleMoreButtonTapped), for: .touchUpInside)
         
         emptyImageView.image = UIImage(named: "ScrollEmpty")
-        emptyImageView.contentMode = .scaleAspectFit
+        emptyImageView.contentMode = .scaleAspectFill
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
         
         emptyLabel.text = "You can add a favorite through the transfer or payment function."
-        emptyLabel.font = Font.label
+        emptyLabel.font = Font.emptyValue
         emptyLabel.textColor = .sublabelColor
         emptyLabel.numberOfLines = 0
         emptyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,15 +82,14 @@ class FavoriteListView: UIView {
         addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             
-            moreButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            moreButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             moreButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
@@ -116,12 +115,10 @@ class FavoriteListView: UIView {
     
     @objc private func handleMoreButtonTapped() {
         guard let itemCount = favoriteListViewModel?.itemCount, itemCount > 0 else { return }
-        
-        // 取得每一頁的 item 數量 (您說每頁顯示 4 個)
+       
         let itemsPerPage = 4
         let totalPages = Int(ceil(Double(itemCount) / Double(itemsPerPage)))
-        
-        // 計算下一頁的 index，如果已經是最後一頁，則回到第一頁
+     
         currentPage = (currentPage + 1) % totalPages
         let nextIndex = currentPage * itemsPerPage
         
