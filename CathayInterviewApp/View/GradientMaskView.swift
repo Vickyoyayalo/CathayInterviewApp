@@ -21,20 +21,41 @@ class GradientMaskView: UIView {
     }
 
     private func setupGradient() {
-        gradientLayer = CAGradientLayer()
-        guard let gradientLayer = gradientLayer else { return }
-        gradientLayer.colors = [
-            UIColor(white: 251.0 / 255.0, alpha: 1.0).cgColor,
-            UIColor(white: 240.0 / 255.0, alpha: 1.0).cgColor
-        ]
-        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.5)
-        gradientLayer.cornerRadius = 3.0
-        layer.addSublayer(gradientLayer)
+        if gradientLayer == nil {
+            let gradient = CAGradientLayer()
+            gradient.colors = [
+                UIColor.lightGray.withAlphaComponent(0.3).cgColor,
+                UIColor.lightGray.withAlphaComponent(0.1).cgColor,
+                UIColor.lightGray.withAlphaComponent(0.3).cgColor
+            ]
+            
+            gradient.startPoint = CGPoint(x: 0, y: 0.5)
+            gradient.endPoint = CGPoint(x: 1, y: 0.5)
+            gradient.locations = [0, 0.5, 1]
+            
+            layer.addSublayer(gradient)
+            self.gradientLayer = gradient
+        }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer?.frame = bounds
+    }
+
+    func startShimmer() {
+        guard gradientLayer?.animation(forKey: "shimmer") == nil else { return }
+        
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [-1.0, -0.5, 0.0]
+        animation.toValue = [1.0, 1.5, 2.0]
+        animation.duration = 1.5
+        animation.repeatCount = Float.infinity
+        animation.isRemovedOnCompletion = false
+        gradientLayer?.add(animation, forKey: "shimmer")
+    }
+
+    func stopShimmer() {
+        gradientLayer?.removeAnimation(forKey: "shimmer")
     }
 }

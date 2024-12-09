@@ -9,6 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController, UIScrollViewDelegate {
     private var hasScrolled = false
+    private var didPullRefresh = false
     private let scrollView = UIScrollView()
     private let viewModel = MainViewModel()
     private let accountBalanceView = AccountBalanceView()
@@ -16,6 +17,9 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     private let favoriteListViewModel = FavoriteListViewModel()
     private let redDotLabel = UILabel()
     private let refreshControl = UIRefreshControl()
+    private var isBannerVisible = true
+    private let adBannerView = AdBannerView()
+    private let adBannerViewModel = AdBannerViewModel()
     
     struct RedDotPosition {
         static let offsetX: CGFloat = -3
@@ -39,21 +43,25 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         scrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         
-        accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
-        
         let menuIconsView = MenuIconsView.withDefaultIcons()
-        menuIconsView.translatesAutoresizingMaskIntoConstraints = false
-        
         let favoriteListView = FavoriteListView()
+        
         favoriteListView.favoriteListViewModel = favoriteListViewModel
+        adBannerView.viewModel = adBannerViewModel
+        
+        adBannerView.isHidden = false
+        
+        accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
+        menuIconsView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListView.translatesAutoresizingMaskIntoConstraints = false
+        adBannerView.translatesAutoresizingMaskIntoConstraints = false
         
         scrollView.addSubview(accountBalanceView)
         scrollView.addSubview(menuIconsView)
         scrollView.addSubview(favoriteListView)
+        scrollView.addSubview(adBannerView)
         
         NSLayoutConstraint.activate([
-            
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -64,27 +72,35 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             accountBalanceView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
             accountBalanceView.heightAnchor.constraint(equalToConstant: 200),
             
-            menuIconsView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
-            menuIconsView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            menuIconsView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            menuIconsView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             menuIconsView.topAnchor.constraint(equalTo: accountBalanceView.bottomAnchor, constant: 8),
-            menuIconsView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
             
             favoriteListView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
             favoriteListView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
             favoriteListView.topAnchor.constraint(equalTo: menuIconsView.bottomAnchor, constant: 16),
             favoriteListView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -48),
-            favoriteListView.heightAnchor.constraint(equalToConstant: 130)
+            favoriteListView.heightAnchor.constraint(equalToConstant: 140),
+            
+            adBannerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 24),
+            adBannerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -24),
+            adBannerView.topAnchor.constraint(equalTo: favoriteListView.bottomAnchor, constant: -12),
+            adBannerView.heightAnchor.constraint(equalToConstant: 150),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: adBannerView.bottomAnchor)
         ])
-        
-        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: favoriteListView.bottomAnchor).isActive = true
         
         accountBalanceView.onToggleVisibility = { [weak self] in
             guard let self = self else { return }
             if self.accountBalanceView.viewModel?.isBalanceHidden == false {
-//                favoriteListViewModel.fetchFavoriteList(isEmpty: false)
+                // favoriteListViewModel.fetchFavoriteList(isEmpty: false)
             }
         }
         favoriteListViewModel.fetchFavoriteList(isEmpty: true)
+        
+        scrollView.panGestureRecognizer.require(toFail: adBannerView.collectionView.panGestureRecognizer)
+        
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,7 +109,6 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func setupUI() {
-        
         view.backgroundColor = .systemBackground
         
         let container = UIView()
@@ -111,7 +126,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         container.addSubview(avatarImageView)
         
         NSLayoutConstraint.activate([
-            avatarImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
+            avatarImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
             avatarImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             avatarImageView.widthAnchor.constraint(equalToConstant: 42),
             avatarImageView.heightAnchor.constraint(equalToConstant: 42)
@@ -134,7 +149,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         notificationContainer.addSubview(notificationButton)
         
         NSLayoutConstraint.activate([
-            notificationButton.trailingAnchor.constraint(equalTo: notificationContainer.trailingAnchor, constant: -24),
+            notificationButton.trailingAnchor.constraint(equalTo: notificationContainer.trailingAnchor, constant: -8),
             notificationButton.centerYAnchor.constraint(equalTo: notificationContainer.centerYAnchor),
             notificationButton.widthAnchor.constraint(equalToConstant: 25),
             notificationButton.heightAnchor.constraint(equalToConstant: 26)
@@ -157,6 +172,10 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             redDotLabel.topAnchor.constraint(equalTo: notificationButton.topAnchor, constant: RedDotPosition.offsetY),
             redDotLabel.trailingAnchor.constraint(equalTo: notificationButton.trailingAnchor, constant: RedDotPosition.offsetX)
         ])
+        
+        redDotLabel.isHidden = true
+        notificationButton.isEnabled = false
+        
         accountBalanceView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(accountBalanceView)
         
@@ -169,8 +188,9 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     private func setupBindings() {
         viewModel.updateUI = { [weak self] in
             DispatchQueue.main.async {
-                let hasNotifications = self?.viewModel.hasNotifications ?? false
-                self?.redDotLabel.isHidden = !hasNotifications
+                guard let self = self else { return }
+                let hasNotifications = self.viewModel.hasNotifications
+                self.redDotLabel.isHidden = !self.didPullRefresh || !hasNotifications
             }
             
             self?.accountBalanceView.onRefreshComplete = { [weak self] in
@@ -187,8 +207,31 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc private func handleRefresh() {
-        accountBalanceViewModel.fetchBalances(apiType: "pullRefresh")
+        didPullRefresh = true
+        
+        if accountBalanceViewModel.isBalanceHidden {
+            if accountBalanceViewModel.isFirstOpen {
+                accountBalanceViewModel.isFirstOpen = false
+                accountBalanceViewModel.updateUI?()
+            } else {
+                accountBalanceViewModel.updateUI?()
+            }
+        } else {
+            accountBalanceViewModel.fetchBalances(apiType: "pullRefresh")
+        }
+        
         favoriteListViewModel.fetchFavoriteList(isEmpty: false)
+        
+        adBannerViewModel.loadBanners()
+        adBannerView.startAutoScroll()
+        
+        refreshControl.endRefreshing()
+        viewModel.updateUI?()
+        
+        if let notificationButton = self.navigationItem.rightBarButtonItem?.customView?.subviews.first(where: { $0 is UIButton }) as? UIButton {
+            notificationButton.isEnabled = true
+        }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -197,5 +240,4 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             favoriteListViewModel.fetchFavoriteList(isEmpty: true)
         }
     }
-
 }

@@ -18,6 +18,7 @@ class AccountBalanceViewModel {
     }
     
     var isFirstOpen: Bool = true
+    
     var updateUI: (() -> Void)?
     
     private var usdTotalAmount: Double = 0.0
@@ -119,19 +120,29 @@ class AccountBalanceViewModel {
             self.khrTotalAmount = khrSavingAmount + khrFixedAmount + khrDigitalAmount
             
             print("After fetch (apiType=\(apiToFetch)): USD total = \(self.usdTotalAmount), KHR total = \(self.khrTotalAmount)")
-            
+           
+            if apiToFetch == "pullRefresh" {
+                self.isFirstOpen = false
+            }
             self.updateBalancesDisplay()
         }
     }
     
     private func updateBalancesDisplay() {
         if isBalanceHidden {
-            usdBalance = "********"
-            khrBalance = "********"
+          
+            if isFirstOpen {
+                usdBalance = " "
+                khrBalance = " "
+            } else {
+                usdBalance = "********"
+                khrBalance = "********"
+            }
         } else {
             usdBalance = String(format: "%.2f", usdTotalAmount)
             khrBalance = String(format: "%.2f", khrTotalAmount)
         }
+        
         updateUI?()
     }
     
@@ -169,4 +180,3 @@ class AccountBalanceViewModel {
         }.resume()
     }
 }
-

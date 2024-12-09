@@ -4,12 +4,10 @@
 //
 //  Created by Vickyhereiam on 2024/12/6.
 //
-
 import UIKit
 
 class MenuIconsView: UIView {
-
-    // 默认的 iconData
+    
     static let defaultIconData: [(icon: UIImage, title: String)] = {
         let defaultIcon = UIImage(systemName: "questionmark.circle")!
         return [
@@ -34,7 +32,6 @@ class MenuIconsView: UIView {
     }
 
     private func setupView(with iconData: [(icon: UIImage, title: String)]) {
-       
         let buttons = iconData.map { createIconButton(icon: $0.icon, title: $0.title) }
     
         let firstRow = createHorizontalStackView(buttons: Array(buttons[0...2]))
@@ -45,10 +42,10 @@ class MenuIconsView: UIView {
         addSubview(verticalStack)
         
         NSLayoutConstraint.activate([
-            verticalStack.topAnchor.constraint(equalTo: topAnchor),
-            verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
+            verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 
@@ -61,41 +58,36 @@ class MenuIconsView: UIView {
         config.title = title
         config.imagePlacement = .top
         config.imagePadding = 12
-        config.baseForegroundColor = .black
-        
+        config.baseForegroundColor = UIColor(named: "gray7") ?? .black
+
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = UIFont.systemFont(ofSize: 14)
+            outgoing.font = Font.emptyValue ?? UIFont.systemFont(ofSize: 14)
             return outgoing
         }
         
         button.configuration = config
+        button.imageView?.contentMode = .scaleAspectFit
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
 
         return button
     }
-
 
     private func createHorizontalStackView(buttons: [UIButton]) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .center
-        stackView.spacing = 5
+        stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
-        buttons.forEach { button in
-            button.widthAnchor.constraint(equalToConstant: 110).isActive = true 
-        }
-
         return stackView
     }
-
 
     private func createVerticalStackView(horizontalStacks: [UIStackView]) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: horizontalStacks)
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

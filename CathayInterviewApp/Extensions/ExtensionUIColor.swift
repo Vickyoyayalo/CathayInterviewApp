@@ -9,6 +9,7 @@ import UIKit
 
 extension UIColor {
     
+    static let grayViewColor = UIColor(named: "gray4")
     static let titleColor = UIColor(named: "gray5")
     static let sublabelColor = UIColor(named: "gray6")
     static let labelColor = UIColor(named: "gray7")
