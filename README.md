@@ -1,6 +1,8 @@
+![CATHAY IOS INTERVIEW](https://github.com/user-attachments/assets/e0ec8223-beff-4938-ad8c-7351936435f4)
+
 # 📱 Cathay Interview App
 
-App 名稱: **瑋琪 iOS 面試**  
+App 名稱：**瑋琪 iOS 面試**  
 專為國泰金控 iOS 面試開發的 app。
 
 感謝國泰金控提供這次寶貴的面試機會，我針對指定需求開發了 **CathayInterviewApp**，基於 UIKit 完成所有核心功能，並挑戰多項加分功能以提升用戶體驗與應用效能。專案設計中注重架構規劃與代碼品質，力求展現對細節的專注。
@@ -22,12 +24,12 @@ App 名稱: **瑋琪 iOS 面試**
 ---
 
 ## 🔧 **開發環境**
-- **開發工具**: Xcode 15.4
-- **語言**: Swift
-- **框架**: UIKit
-- **模擬器**: iPhone 15 Pro (iOS 17.5)
-- **架構**: MVC + MVVM (分層管理 UI 和業務邏輯)
-- **第三方套件**: **無**（全程採用原生方法實作）
+- **開發工具**：Xcode 15.4
+- **語言**：Swift
+- **框架**：UIKit
+- **模擬器**：iPhone 15 Pro (iOS 17.5)
+- **架構**：MVC + MVVM (分層管理 UI 和業務邏輯)
+- **第三方套件**：**無**（全程採用原生方法實作）
 
 ---
 
