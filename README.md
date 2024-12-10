@@ -192,15 +192,15 @@ CathayInterviewApp
 ---
 ## 📱 **實作成果**
 
-### 1️⃣** 動態 Loading ，換Tab也不間斷**
+### 1️⃣ **動態 Loading ，換Tab也不間斷**
 
 https://github.com/user-attachments/assets/b96909b9-4137-475a-98bf-a7db6d1b95b7
 
-### 2️⃣**用戶長按 Favorite 項目，進行拖動排序並即時更新數據**
+### 2️⃣ **用戶長按 Favorite 項目，進行拖動排序並即時更新數據**
 
 https://github.com/user-attachments/assets/6987e878-f35f-4254-9baf-550a9f5e3efb
 
-### 3️⃣**橫幅廣告自動與手動輪播**
+### 3️⃣ **橫幅廣告自動與手動輪播**
 
 https://github.com/user-attachments/assets/264a62ea-0d08-45ea-9f0b-81e1983d55ca
 
