@@ -1,4 +1,5 @@
-![CATHAY IOS INTERVIEW](https://github.com/user-attachments/assets/e0ec8223-beff-4938-ad8c-7351936435f4)
+
+![LinkedIn Title banner](https://github.com/user-attachments/assets/424003ed-dbf6-4d7e-9ab5-0549603161ab)
 
 # 📱 Cathay Interview App
 
